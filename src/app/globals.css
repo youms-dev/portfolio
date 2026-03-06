@@ -1,0 +1,146 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+}
+
+@theme {
+  --color-default: #ededed;
+}
+
+@utility transition-default {
+  @apply transition-all duration-400 ease-in-out;
+}
+
+* {
+  behavior: smooth;
+}
+
+*::-webkit-scrollbar {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #06b6d4, white, #06b6d4);
+  border-radius: 20px;
+}
+
+html.dark *::-webkit-scrollbar-thumb {
+  background: white;
+  border-radius: 20px;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+.nprogress .bar {
+  background: #06b6d4 !important;
+}
+
+html.dark .nprogress .bar {
+  background: #bfdbfe;
+}
+
+.section-animate:not(.show) {
+  opacity: 0;
+  transform: translateY(100px);
+}
+
+.section-animate.show {
+  transition:
+    opacity 1.3s ease-in-out,
+    transform 1s ease-in-out;
+  opacity: 1;
+  transform: translateY(initial);
+}
+
+.section-animate:not(.show) .left-item {
+  transition:
+    opacity 1.3s ease-in-out,
+    transform 1s ease-in-out;
+  opacity: 1;
+  transform: translateX(-100%);
+}
+
+.section-animate:not(.show) .right-item {
+  transition: transform 1.5s ease-in-out;
+  opacity: 1;
+  transform: translateX(100%);
+}
+
+@media screen and (max-width: 900px) {
+  .section-animate:not(.show) .left-item,
+  .section-animate:not(.show) .right-item {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+
+  .section-animate.show .left-item,
+  .section-animate.show .right-item {
+    transition:
+      opacity 1.3s ease-in-out,
+      transform 1s ease-in-out;
+    opacity: 1;
+    transform: translateY(initial);
+  }
+}
+
+.links.box-visible ~ .links-box {
+  animation: links-box 0.2s 1 linear;
+}
+
+@keyframes links-box {
+  0% {
+    transform: scale(1.2);
+  }
+
+  50% {
+    transform: scale(0.8);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.skills-carrousel {
+  animation: skills-carrousel 20s linear infinite;
+}
+
+@keyframes skills-carrousel {
+  0% {
+    transform: translateX(0deg);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.object-3d {
+  transform: perspective(200px) rotate(-50deg) rotateX(30deg) rotateY(50deg)
+    translate(40px, -20px);
+}
+
+@keyframes animatedMenu {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  80% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.scrollbar-invisible::-webkit-scrollbar {
+  display: none !important;
+}

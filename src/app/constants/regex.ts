@@ -1,0 +1,5 @@
+export const MOBILE_CHECK_REGEX = /mobile|ipad|iPod|mob|iphone|android/i;
+
+export const NAME_REGEX = /^([a-zA-Z]+|[a-zA-Z]+('|_|-)[a-zA-Z]+)+(\s([a-zA-Z]+|[a-zA-Z]+('|_|-)[a-zA-Z]+|[a-zA-Z]+\d{1,2}[a-zA-Z]+)+)*$/;
+
+export const EMAIL_REGEX = /^[a-zA-Z]+([a-zA-Z0-9]+|[a-zA-Z0-9_-]+[a-zA-Z0-9]+|([a-zA-Z0-9]+\.[a-zA-Z0-9]+)*)*@([a-zA-Z]+|[a-zA-Z]+[-][a-zA-Z]+){2,}(\.([a-zA-Z]+|[a-zA-Z]+[-][a-zA-Z]+){2,})?\.[a-zA-Z]{2,}$/;
