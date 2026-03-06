@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 
 interface Props {
-    entries?: any[];
+    entries?: any[]
 }
 
 export const Animation = ({ entries }: Props) => {
