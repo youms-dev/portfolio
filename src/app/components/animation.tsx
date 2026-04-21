@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { Animated } from "../types/enum";
 
 interface Props {
     entries?: any[];
@@ -18,10 +19,24 @@ export const Animation = ({ entries }: Props) => {
         });
 
         const handleAnimation = () => {
-            const sectionAnimated = document.querySelectorAll(".section-animate");
+            const sectionAnimated = document.querySelectorAll(`.${Animated.SECTION}`);
+            const animatedLeft = document.querySelectorAll(`.${Animated.LEFT}`);
+            const animatedRight = document.querySelectorAll(`.${Animated.RIGHT}`);
 
             if (sectionAnimated) {
                 sectionAnimated.forEach((section) => {
+                    observer.observe(section);
+                });
+            }
+
+            if (animatedLeft) {
+                animatedLeft.forEach((section) => {
+                    observer.observe(section);
+                });
+            }
+
+            if (animatedRight) {
+                animatedRight.forEach((section) => {
                     observer.observe(section);
                 });
             }

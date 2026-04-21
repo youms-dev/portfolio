@@ -4,6 +4,14 @@ interface Props {
     interactivity?: boolean;
 }
 
+/**
+ * 
+ * @param {boolean} interactivity - Is the grid interactive ? ;
+ * @default false
+ * 
+ * @returns {JSX.Element}
+ */
+
 export const BgGrid = ({ interactivity = false }: Props) => {
     return (
         <div className={clsx(

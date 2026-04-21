@@ -1,45 +1,76 @@
 import clsx from "clsx";
 import { Tailspin } from 'ldrs/react';
 import 'ldrs/react/Tailspin.css';
-import { HTMLAttributes, Ref } from "react";
+import { CSSProperties, HTMLAttributes, Ref } from "react";
 import { useTheme } from "../hooks/use-theme";
 
-interface Props extends HTMLAttributes<HTMLButtonElement> {
+interface Props extends Omit<HTMLAttributes<HTMLButtonElement>, "style" | "className"> {
     children: React.ReactNode;
     size?: string;
     loading?: boolean;
-    variant?: 1 | 2;
     ref?: Ref<HTMLButtonElement>;
     type?: HTMLButtonElement["type"];
+    width?: CSSProperties["width"];
+    height?: CSSProperties["height"];
 }
 
-export const Button = ({ children, size, loading = false, variant = 1, ref, type = "button", ...rest }: Props) => {
-    const { theme } = useTheme();
+/**
+ * 
+ * @param {ReactNode} children - Is the content that'll be displayed ;
+ * @default undefined
+ * 
+ * @param {string} size - Is the size of the button ;
+ * @default undefined
+ * 
+ * @param {boolean} loading - Is the button loading ? ;
+ * @default false
+ * 
+ * @param {Ref<HTMLButtonElement>} ref - Is the ref of the button ;
+ * @default undefined
+ * 
+ * @param {HTMLButtonElement["type"]} type - Is the type of the button ;
+ * @default "button"
+ * 
+ * @param {CSSProperties["width"]} width - Is the width of the button ;
+ * @default undefined
+ * 
+ * @param {CSSProperties["height"]} height - Is the height of the button ;
+ * @default undefined
+ * 
+ * @returns {JSX.Element}
+ */
 
+export const Button = ({ children, size, loading = false, ref, type = "button", width, height, ...rest }: Props) => {
+    const { theme } = useTheme();
     return (
         <button
             {...rest}
             ref={ref && ref}
             disabled={loading}
+            style={{
+                width,
+                height,
+            }}
             className={clsx(
-                "transition-default relative flex justify-center items-center flex-nowrap gap-3 bg-transparent shrink-0 dark:text-blue-200 text-cyan-500 dark:border-blue-200 border-cyan-500 rounded-xl cursor-pointer p-3 overflow-hidden disabled:opacity-70 disabled:cursor-not-allowed lg:hover:shadow-lg lg:hover:shadow-blue-200/30 lg:hover:-translate-y-1 disabled:lg:hover:translate-y-0 active:scale-80 disabled:active:scale-100 before:transition-default before:absolute before:-left-[110%] before:top-0 before:w-10 before:h-[110%] dark:before:bg-blue-200/50 before:bg-black/20 before:-skew-x-30 lg:hover:before:left-[150%]",
-                variant === 1 && "border-b-2",
-                variant === 2 && "border-t-2",
-                size && size,
+                "group/button",
+                "transition-default relative flex justify-center items-center flex-nowrap gap-2 dark:bg-white/80 bg-black/80 shrink-0 rounded-xl cursor-pointer p-3 disabled:opacity-70 disabled:cursor-not-allowed dark:lg:hover:bg-black/80 lg:hover:bg-white/80 disabled:lg:hover:translate-y-0 active:scale-80 disabled:active:scale-100 after:transition-default after:absolute after:-bottom-0 after:w-10/12 after:h-4 dark:after:bg-white/80 after:bg-black/80 after:rotate-x-80 after:blur-md after:translate-y-7",
             )}
         >
             {
-                loading && (
-                    <Tailspin
-                        size="40"
-                        stroke="5"
-                        speed="0.9"
-                        color={theme === "dark" ? "oklch(88.2% 0.059 254.128)" : "oklch(71.5% 0.143 215.221)"}
-                    />
+                loading ? (
+                    <>
+                        <Tailspin
+                            size="25"
+                            stroke="5"
+                            speed="0.9"
+                            color={theme === "dark" ? "rgba(0, 0, 0, .8)" : "rgba(255, 255, 255, .8)"}
+                        />
+
+                        {children}
+                    </>
                 )
-            }
-            {
-                !loading && children
+                    :
+                    children
             }
         </button >
     );

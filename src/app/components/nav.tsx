@@ -5,9 +5,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { IconType } from "react-icons";
-import { FaBars, FaCodeBranch, FaGear, FaHouseUser, FaMoon, FaPhone, FaSun, FaXmark } from "react-icons/fa6";
+import { FaCheck, FaCodeBranch, FaGear, FaGlobe, FaHouseUser, FaMoon, FaPhone, FaSun } from "react-icons/fa6";
+import { LANGUAGE_STORAGE } from "../constants/local-storage";
 import { useTheme } from "../hooks/use-theme";
+import { Box } from "./box";
+import { Component } from "./component";
 
 interface Props {
     name: string;
@@ -24,34 +28,39 @@ const NavLink = ({ name, href, activeName, Icon }: Props) => {
             href={href ? href : `/${name}`}
             className={clsx(
                 "group",
-                "transition-default relative flex items-center gap-3 lg:text-lg max-md:text-lg active:[transform:_scale(.9)_!important] before:transition-default before:absolute before:-left-[15%] before:-top-[2px] before:h-[105%] dark:before:bg-blue-200/20 before:bg-cyan-500/20 after:transition-default after:absolute after:left-0 after:-bottom-1 after:h-[2px] dark:after:bg-blue-200 after:bg-cyan-500",
-                pathname === (activeName ? activeName : `/${name}`) ? "lg:hover:scale-95 before:w-[130%] after:w-full lg:hover:before:w-0 lg:hover:after:w-0" : "before:w-0 after:w-0 lg:hover:before:w-[130%] lg:hover:after:w-full"
+                "transition-default relative flex items-center gap-3 lg:text-lg max-md:text-lg active:[transform:_scale(.9)_!important] before:transition-default before:absolute before:-left-[15%] before:-top-[2px] before:h-[105%] before:rounded-xl dark:before:bg-white/15 before:bg-black/15 max-md:before:bg-white/15 after:transition-default after:absolute after:left-0 after:-bottom-1 after:h-[2px] dark:after:bg-white/80 after:bg-black/80 max-md:after:bg-white/70",
+                pathname === (activeName ? activeName : `/${name}`) ? "lg:hover:scale-95 before:w-[130%] after:w-full lg:hover:before:w-0 lg:hover:after:w-0" : "before:w-0 after:w-0 lg:hover:before:w-[130%] lg:hover:after:w-full",
             )}
         >
             <Icon
                 className={clsx(
                     "transition-default text-xl",
-                    pathname === (activeName ? activeName : `/${name}`) ? "dark:text-blue-200 text-cyan-500 dark:lg:group-hover:text-white lg:group-hover:text-black" : "dark:lg:group-hover:text-blue-200 lg:group-hover:text-cyan-500"
+                    pathname === (activeName ? activeName : `/${name}`) ? "max-md:text-white/70 dark:lg:group-hover:text-white lg:group-hover:text-black" : "max-md:text-white/70",
                 )}
             />
-            <span className={clsx(
-                "transition-default",
-                pathname === (activeName ? activeName : `/${name}`) ? "dark:text-blue-200 text-cyan-500 font-bold dark:lg:group-hover:text-white lg:group-hover:text-black lg:group-hover:font-semibold" : "dark:lg:group-hover:text-blue-200 lg:group-hover:text-cyan-500"
-            )}>
+            <Component
+                component="span"
+                className={clsx(
+                    "transition-default",
+                    pathname === (activeName ? activeName : `/${name}`) ? "max-md:text-white/70 font-bold dark:lg:group-hover:text-white lg:group-hover:text-black lg:group-hover:font-semibold" : "max-md:text-white/70",
+                )}>
                 {name}
-            </span>
+            </Component>
         </Link>
     );
 };
 
 export const Nav = () => {
     const [progressWidth, setProgressWidth] = useState<string>("0%");
-    const { theme, target, setTheme } = useTheme();
+    const { theme, setTheme } = useTheme();
     const [themeIcon, setThemeIcon] = useState<{ value: IconType }>({
         value: FaGear,
     });
     const [navShadow, setNavShadow] = useState<boolean>(false);
     const [menuActive, setMenuActive] = useState<boolean>(false);
+    const { t, i18n } = useTranslation();
+    const lngTab = ["en", "fr"];
+    const [lngTarget, setLngTarget] = useState<string | null>(null);
 
     useEffect(() => {
         const rootView = document.documentElement;
@@ -68,22 +77,17 @@ export const Nav = () => {
     }, []);
 
     useEffect(() => {
-        if (target === "dark") {
+        if (theme === "dark") {
             setThemeIcon({
                 value: FaMoon,
             });
         }
-        else if (target === "light") {
+        else {
             setThemeIcon({
                 value: FaSun,
             });
         }
-        else {
-            setThemeIcon({
-                value: FaGear,
-            });
-        }
-    }, [target]);
+    }, [theme]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -100,6 +104,34 @@ export const Nav = () => {
 
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
+    const changeLanguage = (value: string | undefined = undefined) => {
+        if (value) {
+            i18n.changeLanguage(value);
+            localStorage.setItem(LANGUAGE_STORAGE, value);
+            setLngTarget(value);
+        }
+        else {
+            const lng = navigator.language.split("-").shift()?.toLowerCase() ?? "en";
+
+            if (lngTab.includes(lng)) i18n.changeLanguage(lng);
+            else i18n.changeLanguage("en");
+            localStorage.removeItem(LANGUAGE_STORAGE);
+            setLngTarget(null);
+        }
+    }
+
+    useEffect(() => {
+        const lng = localStorage.getItem(LANGUAGE_STORAGE);
+
+        if (lng && lngTab.includes(lng)) {
+            i18n.changeLanguage(lng);
+            setLngTarget(lng);
+        }
+        else {
+            setLngTarget(null);
+        }
+    }, [i18n]);
 
     return (
         <nav
@@ -129,7 +161,7 @@ export const Nav = () => {
 
                 <Link
                     href="/"
-                    className="transition-default relative bottom-2 font-['papyrus'] text-2xl max-md:text-xl font-extrabold text-transparent bg-clip-text dark:bg-linear-to-br bg-linear-to-r dark:from-blue-200 from-cyan-500 dark:via-white/30 via-black dark:to-blue-200 to-cyan-500 dark:lg:hover:text-blue-200 lg:hover:text-cyan-500 before:transition-default before:absolute before:left-0 before:-bottom-1 before:w-2/3 before:h-[2px] dark:before:bg-linear-to-br before:bg-linear-to-r dark:before:from-blue-200 before:from-cyan-500 dark:before:via-white/30 before:via-black dark:before:to-blue-200 before:to-cyan-500 dark:lg:hover:before:bg-blue-200 lg:hover:before:bg-cyan-500 after:transition-default after:absolute after:left-0 after:-bottom-3 after:w-1/3 after:h-[2px] dark:after:bg-linear-to-br after:bg-linear-to-r dark:after:from-blue-200 after:from-cyan-500 dark:after:via-white/30 after:via-black dark:after:to-blue-200 after:to-cyan-500 dark:lg:hover:after:bg-blue-200 lg:hover:after:bg-cyan-500"
+                    className="transition-default relative bottom-2 font-['papyrus'] text-2xl max-md:text-xl font-extrabold text-transparent bg-clip-text bg-linear-to-br dark:from-white/80 from-black/80 dark:via-white/10 dark:via-50% via-black/30 via-60% dark:to-white/80 dark:to-100% to-black/80 to-80% dark:lg:hover:text-white/80 lg:hover:text-black/80 before:transition-default before:absolute before:left-0 before:-bottom-1 before:w-2/3 before:h-[2px] dark:before:bg-linear-to-br before:bg-linear-to-r dark:before:from-white/80 before:from-black/80 dark:before:via-black/30 before:via-black/10 dark:before:to-white/80 before:to-black/80 dark:lg:hover:before:bg-white/80 lg:hover:before:bg-black/80 after:transition-default after:absolute after:left-0 after:-bottom-3 after:w-1/3 after:h-[2px] dark:after:bg-linear-to-br after:bg-linear-to-r dark:after:from-white/80 after:from-black/80 dark:after:via-black/30 after:via-black/20 dark:after:to-white/80 after:to-black/80 dark:lg:hover:after:bg-white/80 lg:hover:after:bg-black/80"
                 >
                     Youms&rsquo;s portfolio
                 </Link>
@@ -137,120 +169,124 @@ export const Nav = () => {
 
             <div className={clsx(
                 "group/menu",
-                "transition-default max-md:absolute max-md:right-0 max-md:top-18 md:w-full min-[370px]:w-[300px] w-[90%] md:h-full h-[calc(100vh-72px)] flex max-md:flex-col items-center max-md:z-50 max-md:border-l-2 dark:max-md:border-white/20 dark:max-md:shadow-[-3px_5px_10px_white]/80 max-md:shadow-[-3px_10px_10px_black]/70 dark:max-md:bg-black/85 max-md:bg-white/90",
-                menuActive ? "max-md:translate-x-0 menu-active" : "max-md:translate-x-[calc(100vw*2)]"
+                "transition-default max-md:absolute max-md:right-0 max-md:top-18 md:w-full min-[370px]:w-[320px] w-[90%] md:h-full h-[calc(100vh-72px)] flex max-md:flex-col items-center max-md:z-50 max-md:bg-black/80 max-md:backdrop-blur-[300px] max-md:rounded-s-[50px]",
+                menuActive ? "max-md:translate-x-0 menu-active" : "max-md:translate-x-full"
             )}>
                 <div className={clsx(
                     "scrollbar-invisible group/menu",
-                    "transition-default w-full h-full flex max-md:flex-col justify-end max-md:justify-start items-center md:gap-20 gap-15 max-md:py-5 max-md:overflow-y-auto max-md:overscroll-contain",
+                    "transition-default w-full h-full flex max-md:flex-col justify-end max-md:justify-start items-center md:gap-13 gap-15 max-md:py-5 max-md:overflow-y-auto max-md:overscroll-contain",
                 )}>
                     <div className="transition-default max-md:translate-x-[calc(100vw+10px)] max-md:group-[.menu-active]/menu:translate-x-0 max-md:group-[.menu-active]/menu:delay-150">
                         <NavLink
-                            name="Accueil"
                             href="/"
+                            name={t("home")}
                             activeName="/"
                             Icon={FaHouseUser}
                         />
                     </div>
 
-                    <div className="transition-default max-md:translate-x-[calc(100vw+10px)] max-md:group-[.menu-active]/menu:translate-x-0 max-md:group-[.menu-active]/menu:delay-250">
+                    <div className="transition-default max-md:translate-x-[calc(100vw+10px)] max-md:group-[.menu-active]/menu:translate-x-0 max-md:group-[.menu-active]/menu:delay-300">
                         <NavLink
                             href="/projects"
-                            name="projets"
+                            name={t("projects")}
                             activeName="/projects"
                             Icon={FaCodeBranch}
                         />
                     </div>
 
-                    <div className="transition-default max-md:translate-x-[calc(100vw+10px)] max-md:group-[.menu-active]/menu:translate-x-0 max-md:group-[.menu-active]/menu:delay-350">
+                    <div className="transition-default max-md:translate-x-[calc(100vw+10px)] max-md:group-[.menu-active]/menu:translate-x-0 max-md:group-[.menu-active]/menu:delay-400">
                         <NavLink
                             href="/contact"
-                            name="contact"
+                            name={t("contact")}
                             Icon={FaPhone}
                         />
                     </div>
-
-                    <div className={clsx(
-                        "group/themeIcon",
-                        "transition-default relative max-md:hidden",
-                    )}
-                    >
-                        <div className="transition-default relative perspective-distant">
-                            <themeIcon.value
-                                className={clsx(
-                                    "transition-default text-2xl cursor-pointer",
-                                    target === "dark" && "text-white",
-                                    target === "light" && "text-amber-400",
-                                    target === "system" && "text-gray-400",
-                                )}
-                            />
-                            <span
-                                className={clsx(
-                                    "transition-default absolute left-[2px] -bottom-5 size-5 rotate-x-60 blur-xs",
-                                    target === "dark" && "bg-white/80",
-                                    target === "light" && "bg-amber-400/40",
-                                    target === "system" && "bg-gray-400",
-                                )}
-                            />
-                        </div>
-
-                        <div className="transition-default absolute -right-3 -bottom-43 w-50 pt-10 pb-1 pointer-events-none opacity-0  group-hover/themeIcon:animate-[animatedMenu_.3s_1_ease-in-out] group-hover/themeIcon:opacity-100 group-hover/themeIcon:pointer-events-auto">
-                            <div className="transition-default w-full flex flex-col items-center gap-3 border dark:border-white/20 border-black/20 p-4 rounded-xl dark:bg-gray-950 bg-white shadow-lg dark:shadow-white/20 shadow-black/50">
-                                <div className="transition-default absolute right-0 top-0 -translate-x-3 translate-y-8 size-6 dark:bg-gray-600 bg-white border dark:border-wite/20 border-black/20 -rotate-45 -z-10"></div>
-                                <div
-                                    onClick={() => setTheme("system")}
-                                    className={clsx(
-                                        "group",
-                                        "transition-default relative w-full flex justify-between items-center gap-4 cursor-pointer before:transition-default before:absolute before:left-0 before:-bottom-1 before:w-0 before:h-[2px] dark:before:bg-white/50 before:bg-gray-400 lg:hover:before:w-full"
-                                    )}
-                                >
-                                    <span className="transition-default dark:text-white text-black">Système</span>
-                                    <FaGear
-                                        className="transition-default text-xl text-gray-400 group-hover:scale-120 group-active:scale-90"
-                                    />
-                                </div>
-
-                                <div
-                                    onClick={() => setTheme("light")}
-                                    className={clsx(
-                                        "group",
-                                        "transition-default relative w-full flex justify-between items-center gap-4 cursor-pointer before:transition-default before:absolute before:left-0 before:-bottom-1 before:w-0 before:h-[2px] before:bg-amber-400/60 lg:hover:before:w-full"
-                                    )}>
-                                    <span className="transition-default dark:text-white text-black">Clair</span>
-                                    <FaSun
-                                        className="transition-default text-xl text-amber-400 group-hover:scale-120 group-active:scale-90"
-                                    />
-                                </div>
-                                
-                                <div
-                                    onClick={() => setTheme("dark")}
-                                    className={clsx(
-                                        "group",
-                                        "transition-default relative w-full flex justify-between items-center gap-4 cursor-pointer before:transition-default before:absolute before:left-0 before:-bottom-1 before:w-0 before:h-[2px] dark:before:bg-white/50 before:bg-black lg:hover:before:w-full"
-                                    )}
-                                >
-                                    <span className="transition-default dark:text-white text-black">Sombre</span>
-                                    <FaMoon
-                                        className="transition-default text-xl dark:text-white text-black group-hover:scale-120 group-active:scale-90"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
-                <div className="transition-default relative w-full md:hidden flex justify-center items-center shrink-0 max-md:gap-3  border-t-black/20 py-4 max-md:translate-y-[calc(100%+10%)] max-md:group-[.menu-active]/menu:translate-y-0  max-md:group-[.menu-active]/menu:delay-500 before:transition-default before:absolute before:-top-[2px] before:w-2/3 before:h-[2px] dark:before:bg-white/50 before:bg-black/50">
+                <div className="transition-default relative w-full md:hidden flex justify-center items-center shrink-0 max-md:gap-3  border-t-black/20 py-4 max-md:translate-y-[calc(100%+10%)] max-md:group-[.menu-active]/menu:translate-y-0 max-md:group-[.menu-active]/menu:delay-600 before:transition-default before:absolute before:-top-[2px] before:w-2/3 before:h-[2px] before:bg-white/20">
                     <span
-                        className="transition-default font-['papyrus'] text-2xl max-md:text-xl font-extrabold text-transparent bg-clip-text dark:bg-linear-to-br bg-linear-to-r dark:from-blue-200 from-cyan-500 dark:via-white/30 via-black dark:to-blue-200 to-cyan-500 dark:lg:hover:text-blue-200 lg:hover:text-cyan-500"
+                        className="transition-default font-['papyrus'] text-2xl max-md:text-xl font-extrabold text-transparent bg-clip-text dark:bg-linear-to-br bg-linear-to-r from-white/80 via-white/10 via-50% to-white/80 to-100% cursor-default"
                     >
                         &copy; Youms&rsquo;s portfolio {new Date().getFullYear()}
                     </span>
                 </div>
             </div>
 
-            <div className="transition-default w-full h-full min-md:hidden flex justify-end items-center min-[500px]:gap-8 gap-5 px-2 pl-10">
+            <div className="transition-default max-md:w-full h-full flex justify-end items-center  gap-5 px-2 pl-10">
                 <div className={clsx(
-                    "group/themeIcon",
+                    "group/parent",
+                    "transition-default relative",
+                )}
+                >
+                    <div className="transition-default relative flex items-center gap-2 cursor-pointer">
+                        <FaGlobe className={clsx(
+                            "transition-default text-2xl cursor-pointer",
+                            theme === "dark" ? "text-white/80" : "text-black/80",
+                        )} />
+
+                        <span className="transition-default text-lg first-letter:uppercase">
+                            {i18n.language}
+                        </span>
+                    </div>
+
+                    <Box
+                        gap={10}
+                        left={20}
+                    >
+                        <div
+                            onClick={() => changeLanguage(undefined)}
+                            className={clsx(
+                                "group",
+                                "transition-default relative w-full flex justify-between items-center gap-4 cursor-pointer"
+                            )}
+                        >
+                            <span className="transition-default text-white/80">
+                                {t("system")}
+                            </span>
+
+                            <FaCheck className={clsx(
+                                "transition-default text-xl text-white/80",
+                                lngTarget == null ? "opacity-100" : "opacity-0 lg:group-hover:opacity-60"
+                            )} />
+                        </div>
+
+                        <div
+                            onClick={() => changeLanguage("fr")}
+                            className={clsx(
+                                "group",
+                                "transition-default relative w-full flex justify-between items-center gap-4 cursor-pointer"
+                            )}
+                        >
+                            <span className="transition-default text-white/80">
+                                {t("french")}
+                            </span>
+
+                            <FaCheck className={clsx(
+                                "transition-default text-xl text-white/80",
+                                lngTarget == "fr" ? "opacity-100" : "opacity-0 lg:group-hover:opacity-60"
+                            )} />
+                        </div>
+                        <div
+                            onClick={() => changeLanguage("en")}
+                            className={clsx(
+                                "group",
+                                "transition-default relative w-full flex justify-between items-center gap-4 cursor-pointer"
+                            )}
+                        >
+                            <span className="transition-default text-white/80">
+                                {t("english")}
+                            </span>
+
+                            <FaCheck className={clsx(
+                                "transition-default text-xl text-white/80",
+                                lngTarget == "en" ? "opacity-100" : "opacity-0 lg:group-hover:opacity-60"
+                            )} />
+                        </div>
+                    </Box>
+                </div>
+
+                <div className={clsx(
+                    "group/parent",
                     "transition-default relative",
                 )}
                 >
@@ -258,62 +294,59 @@ export const Nav = () => {
                         <themeIcon.value
                             className={clsx(
                                 "transition-default text-2xl cursor-pointer",
-                                target === "dark" && "text-white",
-                                target === "light" && "text-amber-400",
-                                target === "system" && "text-gray-400",
+                                theme === "dark" ? "text-white/80" : "text-black/80",
                             )}
                         />
                         <span
                             className={clsx(
-                                "transition-default absolute left-[2px] -bottom-5 size-5 rotate-x-60 blur-xs",
-                                target === "dark" && "bg-white/80",
-                                target === "light" && "bg-amber-400/40",
-                                target === "system" && "bg-gray-400",
+                                "transition-default absolute left-[2px] -bottom-5 size-5 rotate-x-80 blur-sm",
+                                theme === "dark" ? "bg-white/80" : "bg-black/80",
                             )}
                         />
                     </div>
-                    <div className="transition-default absolute -right-3 -bottom-43 w-50 pt-10 pb-1 pointer-events-none opacity-0  group-hover/themeIcon:animate-[animatedMenu_.3s_1_ease-in-out] group-hover/themeIcon:opacity-100 group-hover/themeIcon:pointer-events-auto">
-                        <div className="transition-default w-full flex flex-col items-center gap-3 border dark:border-white/20 border-black/20 p-4 rounded-xl dark:bg-gray-950 bg-white shadow-lg dark:shadow-white/20 shadow-black/50">
-                            <div className="transition-default absolute right-0 top-0 -translate-x-3 translate-y-8 size-6 dark:bg-gray-600 bg-white border dark:border-wite/20 border-black/20 -rotate-45 -z-10"></div>
-                            <div
-                                onClick={() => setTheme("system")}
-                                className={clsx(
-                                    "group",
-                                    "transition-default relative w-full flex justify-between items-center gap-4 cursor-pointer before:transition-default before:absolute before:left-0 before:-bottom-1 before:w-0 before:h-[2px] dark:before:bg-white/50 before:bg-gray-400 lg:hover:before:w-full"
-                                )}
-                            >
-                                <span className="transition-default dark:text-white text-black">Système</span>
-                                <FaGear
-                                    className="transition-default text-xl text-gray-400 group-hover:scale-120 group-active:scale-90"
-                                />
-                            </div>
-                            <div
-                                onClick={() => setTheme("light")}
-                                className={clsx(
-                                    "group",
-                                    "transition-default relative w-full flex justify-between items-center gap-4 cursor-pointer before:transition-default before:absolute before:left-0 before:-bottom-1 before:w-0 before:h-[2px] before:bg-amber-400/60 lg:hover:before:w-full"
-                                )}>
-                                <span className="transition-default dark:text-white text-black">Clair</span>
-                                <FaSun
-                                    className="transition-default text-xl text-amber-400 group-hover:scale-120 group-active:scale-90"
-                                />
-                            </div>
-                            <div
-                                onClick={() => setTheme("dark")}
-                                className={clsx(
-                                    "group",
-                                    "transition-default relative w-full flex justify-between items-center gap-4 cursor-pointer before:transition-default before:absolute before:left-0 before:-bottom-1 before:w-0 before:h-[2px] dark:before:bg-white/50 before:bg-black lg:hover:before:w-full"
-                                )}
-                            >
-                                <span className="transition-default dark:text-white text-black">Sombre</span>
-                                <FaMoon
-                                    className="transition-default text-xl dark:text-white text-black group-hover:scale-120 group-active:scale-90"
-                                />
-                            </div>
+
+                    <Box gap={10}>
+                        <div
+                            onClick={() => setTheme("system")}
+                            className={clsx(
+                                "group",
+                                "transition-default relative w-full flex justify-between items-center gap-4 cursor-pointer before:transition-default before:absolute before:left-0 before:-bottom-1 before:w-0 before:h-[2px] dark:before:bg-gray-400 before:bg-gray-400 lg:hover:before:w-full"
+                            )}
+                        >
+                            <span className="transition-default text-white/80 lg:group-hover:text-gray-400">Système</span>
+                            <FaGear
+                                className="transition-default text-xl text-gray-400 group-hover:scale-120 group-active:scale-90"
+                            />
                         </div>
-                    </div>
+
+                        <div
+                            onClick={() => setTheme("light")}
+                            className={clsx(
+                                "group",
+                                "transition-default relative w-full flex justify-between items-center gap-4 cursor-pointer before:transition-default before:absolute before:left-0 before:-bottom-1 before:w-0 before:h-[2px] before:bg-amber-400/60 lg:hover:before:w-full"
+                            )}>
+                            <span className="transition-default text-white/80 lg:group-hover:text-amber-400">Clair</span>
+                            <FaSun
+                                className="transition-default text-xl text-amber-400 group-hover:scale-120 group-active:scale-90"
+                            />
+                        </div>
+
+                        <div
+                            onClick={() => setTheme("dark")}
+                            className={clsx(
+                                "group",
+                                "transition-default relative w-full flex justify-between items-center gap-4 cursor-pointer before:transition-default before:absolute before:left-0 before:-bottom-1 before:w-0 before:h-[2px] dark:before:bg-white/50 before:bg-black lg:hover:before:w-full"
+                            )}
+                        >
+                            <span className="transition-default text-white/80 lg:group-hover:text-white">Sombre</span>
+                            <FaMoon
+                                className="transition-default text-xl text-white/80 group-hover:scale-120 group-active:scale-90 lg:group-hover:text-white"
+                            />
+                        </div>
+                    </Box>
                 </div>
-                <div className="transition-default relative h-full flex justify-center items-center">
+
+                <div className="transition-default relative h-full md:hidden flex justify-center items-center">
                     <div
                         onClick={() => setMenuActive(!menuActive)}
                         className={clsx(
@@ -331,7 +364,7 @@ export const Nav = () => {
                     </div>
                     <span
                         className={clsx(
-                            "transition-default absolute left-3.5 bottom-[3.5px] size-5 rotate-x-60 blur-xs dark:bg-white/70 bg-black/30"
+                            "transition-default absolute left-3.5 bottom-[3.5px] size-5 rotate-x-80 blur-sm dark:bg-white/80 bg-black/80"
                         )}
                     />
                 </div>

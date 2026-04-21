@@ -6,6 +6,17 @@ interface Props extends HTMLAttributes<HTMLHeadingElement> {
     size?: string;
 }
 
+/**
+ * 
+ * @param {ReactNode} children - Is the content that'll be displayed ;
+ * @default undefined
+ * 
+ * @param {string} size - Is the size of the title ;
+ * @default undefined
+ * 
+ * @returns {JSX.Element}
+ */
+
 export const Title = ({ children, size, ...rest }: Props) => {
     return (
         <h1

@@ -10,6 +10,17 @@ interface Props {
     duration?: number;
 }
 
+/**
+ * 
+ * @param {ProjectType["interfaces"]} list - Is the list of interfaces to display ;
+ * @default undefined
+ * 
+ * @param {number} duration - Is the duration of the carousel ;
+ * @default 2000
+ * 
+ * @returns {JSX.Element}
+ */
+
 export const Carousel = ({ list, duration = 2000 }: Props) => {
     const ref = useRef<HTMLDivElement>(null);
     const [isMobile, setIsMobile] = useState<boolean>(false);

@@ -8,6 +8,7 @@
 
 @theme {
   --color-default: #ededed;
+  --font-inter: var(--font-inter);
 }
 
 @utility transition-default {
@@ -16,6 +17,7 @@
 
 * {
   behavior: smooth;
+  font-family: var(--font-inter);
 }
 
 *::-webkit-scrollbar {
@@ -23,12 +25,12 @@
 }
 
 *::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #06b6d4, white, #06b6d4);
+  background: rgba(0, 0, 0, .8);
   border-radius: 20px;
 }
 
 html.dark *::-webkit-scrollbar-thumb {
-  background: white;
+  background: rgba(255, 255, 255, .8);
   border-radius: 20px;
 }
 
@@ -38,19 +40,31 @@ body {
 }
 
 .nprogress .bar {
-  background: #06b6d4 !important;
+  background: rgba(0, 0, 0, .8) !important;
 }
 
 html.dark .nprogress .bar {
-  background: #bfdbfe;
+  background: rgba(255, 255, 255, .8);
 }
 
-.section-animate:not(.show) {
+.section-animated:not(.show) {
   opacity: 0;
   transform: translateY(100px);
 }
 
-.section-animate.show {
+.animated-left:not(.show) {
+  opacity: 1;
+  transform: translateX(-100%);
+}
+
+.animated-right:not(.show) {
+  opacity: 1;
+  transform: translateX(100%);
+}
+
+.section-animated.show,
+.animated-left.show,
+.animated-right.show {
   transition:
     opacity 1.3s ease-in-out,
     transform 1s ease-in-out;
@@ -58,29 +72,16 @@ html.dark .nprogress .bar {
   transform: translateY(initial);
 }
 
-.section-animate:not(.show) .left-item {
-  transition:
-    opacity 1.3s ease-in-out,
-    transform 1s ease-in-out;
-  opacity: 1;
-  transform: translateX(-100%);
-}
-
-.section-animate:not(.show) .right-item {
-  transition: transform 1.5s ease-in-out;
-  opacity: 1;
-  transform: translateX(100%);
-}
-
 @media screen and (max-width: 900px) {
-  .section-animate:not(.show) .left-item,
-  .section-animate:not(.show) .right-item {
+  .animated-left:not(.show),
+  .animated-right:not(.show) {
     opacity: 0;
     transform: translateY(100px);
   }
 
-  .section-animate.show .left-item,
-  .section-animate.show .right-item {
+  .section-animated.show,
+  .animated-left.show,
+  .animated-right.show {
     transition:
       opacity 1.3s ease-in-out,
       transform 1s ease-in-out;
@@ -126,7 +127,7 @@ html.dark .nprogress .bar {
     translate(40px, -20px);
 }
 
-@keyframes animatedMenu {
+@keyframes boxAnimation {
   0% {
     transform: scale(0);
   }

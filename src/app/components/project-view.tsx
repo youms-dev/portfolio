@@ -2,21 +2,35 @@
 
 import clsx from "clsx";
 import Image from "next/image";
+import Link from "next/link";
 import { useRef, useState } from "react";
 import { FaGitlab, FaImages, FaInfoCircle, FaRProject } from "react-icons/fa";
 import { FaGrip, FaScrollTorah, FaXmark } from "react-icons/fa6";
 import { ProjectType } from "../constants/data";
 import { Button } from "./button";
 import { Carousel } from "./carousel";
-import { Title } from "./title";
 import { Desc } from "./description";
-import Link from "next/link";
+import { Title } from "./title";
 
 interface Props {
     title: string;
     data: ProjectType[];
     initialMode?: "grid" | "carousel",
 }
+
+/**
+ * 
+ * @param {string} title - Is the title of the project view ;
+ * @default undefined
+ * 
+ * @param {ProjectType[]} data - Is the data of the project view ;
+ * @default undefined
+ * 
+ * @param {"grid" | "carousel"} initialMode - Is the initial mode of the project view ;
+ * @default "grid"
+ * 
+ * @returns {JSX.Element}
+ */
 
 export const ProjectView = ({ title, data, initialMode = "grid" }: Props) => {
     const [mode, setMode] = useState<typeof initialMode>(initialMode);

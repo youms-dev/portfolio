@@ -16,6 +16,29 @@ interface Props {
     navigation?: boolean;
 }
 
+/**
+ * 
+ * @param {ReactNode} children - Is the content that'll be displayed ;
+ * @default undefined
+ * 
+ * @param {boolean} center - Is the container centered ? ;
+ * @default false
+ * 
+ * @param {boolean} centerX - Is the container centered on the x-axis ? ;
+ * @default false
+ * 
+ * @param {boolean} centerY - Is the container centered on the y-axis ? ;
+ * @default false
+ * 
+ * @param {boolean} spaceTop - Is there space at the top of the container ? ;
+ * @default true
+ * 
+ * @param {boolean} navigation - Is there a navigation bar ? ;
+ * @default true
+ * 
+ * @returns {JSX.Element}
+ */
+
 export const Container = ({ children, center = false, centerX = false, centerY = false, spaceTop = true, navigation = true }: Props) => {
     Animation({ entries: [children] });
 

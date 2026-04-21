@@ -15,6 +15,23 @@ interface Props {
     Icon: IconType;
 }
 
+/**
+ * 
+ * @param {string} name - Is the name of the link ;
+ * @default undefined
+ * 
+ * @param {string} href - Is the href of the link ;
+ * @default undefined
+ * 
+ * @param {string} activeName - Is the active name of the link ;
+ * @default undefined
+ * 
+ * @param {IconType} Icon - Is the icon of the link ;
+ * @default undefined
+ * 
+ * @returns {JSX.Element}
+ */
+
 const FooterLink = ({ name, href, activeName, Icon }: Props) => {
     const pathname = usePathname();
 
@@ -121,7 +138,7 @@ export const Footer = () => {
                 "transition-default w-full flex flex-wrap justify-center items-center gap-8"
             )}>
                 <Link
-                    href={"/"}
+                    href={"https://www.linkedin.com/in/youmbi-le-duc-887275360"}
                     target="_blank"
                 >
                     <FaLinkedinIn
@@ -141,14 +158,14 @@ export const Footer = () => {
             <div className={clsx(
                 "transition-default w-full flex justify-center items-center"
             )}>
-                <div className="transition-default flex justify-center items-center gap-1">
+                <div className="transition-default flex justify-center items-center gap-3">
                     <span
                         className="transition-default sm:text-lg dark:text-white text-black font-semibold"
                     >
-                        &copy; Youms.dev
+                        &copy; {devInfos.pseudo}
                     </span>
                     <Link
-                        href={`mailto:${devInfos.email}`}
+                        href={`mailto:"Youmbi Le-duc" <${devInfos.email}>`}
                         className="transition-default sm:text-lg dark:text-white text-black font-semibold dark:lg:hover:text-blue-200 lg:hover:text-cyan-500"
                     >
                         {devInfos.email}

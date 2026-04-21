@@ -6,6 +6,17 @@ interface DescProps extends HTMLAttributes<HTMLParagraphElement> {
     className?: string;
 }
 
+/**
+ * 
+ * @param {string} sentence - Is the sentence to display ;
+ * @default undefined
+ * 
+ * @param {string} className - Is the class name that'll be applied to the component ;
+ * @default undefined
+ * 
+ * @returns {JSX.Element}
+ */
+
 export const Desc = ({ sentence: str, className = "", ...rest }: DescProps) => {
     const ref = useRef<HTMLParagraphElement>(null);
 

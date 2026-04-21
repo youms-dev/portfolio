@@ -383,6 +383,10 @@ export const Next: ProjectType[] = [
 
 export const RN: ProjectType[] = [
     {
+        titre: "Student_QR",
+        description: "__Student__ __QR__ est une application mobile de __scan__ __de__ __code__ __QR__ permettant aux vigiles des établissements de rapidement savoir si un étudiant est à jour dans les tranches de la scolarité à payer ceci en scannant le code QR lié à l'étudiant sur son reçu.\nLe procédé de vérification est le suivant est le suivant:\n- À l'arrivée de l'étudiant devant l'établissement, ce dernier présente son reçu de paiement à l'un des vigiles présents.\n- Le vigile récupère le reçu et scan tout simplement le code QR qui s'y trouve.\n- Ensuite, l'application déchiffre le code QR de l'étudiant et récupère ses informations ceci en retournant les tranches que l'étudiant est censé payer, si il a payé, la case correspondant à la tranche est cochée et sinon elle est vide.\n\nL'application a été mise sur pied grâce à:\n- __React__ __Native__ : pour le __front-end__ ( vues / interfaces ), \n- __Nestjs__ : pour le __back-end__ ( gestion des ressources de l'application ),\n- __Nativewind__ : pour le style / design global de l'application, \n- __TypeORM__ : pour la gestion fluide, efficace et plus simple des requêtes vers __la__ __base__ __de__ __données__ ( __POSTGRESQL__ ) , \n- __Supabase__ : pour le déploiement de la __base__ __de__ __données__.",
+    },
+    {
         titre: "YoumsVersity",
         description: "__YoumsVersity__ est un réseau social ( __application__ __mobile__ ) uniquement conçu pour __enseignants__ __et__ __étudiants__, où différents enseignants désirants offrir leurs savoir massif peuvent le faire via des __publications__ de type __vidéo__ ou __image__, pour permettre aux étudiants de ne plus être limité en terme de connaissance par rapport à leurs niveaux scolaires.\nCelle-ci a été mise sur pied grâce à:\n- __React__ __Native__ : pour le __front-end__ ( vues / interfaces ), \n- __Nestjs__ : pour le __back-end__ ( gestion des ressources de l'application ),\n- __Nativewind__ : pour le style / design global de l'application, \n- __TypeORM__ : pour la gestion fluide, efficace et plus simple des requêtes vers __la__ __base__ __de__ __données__ ( __POSTGRESQL__ ) , \n- __Supabase__ : pour le déploiement de la __base__ __de__ __données__, le stockage des fichiers et __l'authentification__ des utilisateurs.",
     },
@@ -391,7 +395,7 @@ export const RN: ProjectType[] = [
 export const devInfos = {
     name: "Youmbi Le-duc",
     pseudo: "Youms.dev",
-    email: "youmsc.co@gmail.com",
+    email: "youmsdeveloper@gmail.com",
     devEmail: "youms.dev@gmail.com",
     phoneNumber: "+237690552385",
     studyLevel: "Licence",
@@ -402,8 +406,7 @@ export const devInfos = {
         'Développeur front-end',
         'Développeur back-end',
         'Développeur web',
-        'Développeur mobile',
-        'Bref ^700',
+        'Développeur mobile ^700',
         'Développeur web et mobile full stack'
     ]
 }
@@ -414,4 +417,5 @@ export const other = {
     NOSQL: 65,
     PRISMA: 80,
     TYPEORM: 80,
+    SQLITE: 70,
 }

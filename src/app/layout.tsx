@@ -1,18 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { Bounce, ToastContainer } from "react-toastify";
+import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { DevInfos } from "./components/dev-info";
 import ProgressBar from "./components/progress-bar";
-import { DevInfos } from "./components/devInfo";
+import { ToastProvider } from "./components/toast-provider";
+import "./globals.css";
 import { ThemeProvider } from "./hooks/use-theme";
+import { LanguageProvider } from "./components/language-provider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
@@ -46,25 +42,16 @@ export default function RootLayout({
         <meta name="google-site-verification" content="mo8NxphzXsbtW-kauNMm9c7fouT008Mj0t8RaRJKjKA" />
       </head>
       <body
-        className={`transition-default ${geistSans.variable} ${geistMono.variable} antialiased dark:**:selection:bg-blue-200 **:selection:bg-cyan-500 **:selection:text-black **:selection:[font-weight:_900_!important] dark:bg-black bg-white dark:*:text-default *:text-black overflow-x-hidden`}
+        className={`transition-default ${inter.variable} antialiased dark:**:selection:bg-white/80 **:selection:bg-black/80 dark:**:selection:text-black/80 **:selection:text-white/80 **:selection:[font-weight:900_!important] dark:bg-black/90 bg-black/10 dark:*:text-white/80 *:text-black/80 overflow-x-hidden`}
       >
         <ProgressBar />
         <DevInfos />
-        <ToastContainer
-          position="top-center"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick={true}
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="dark"
-          transition={Bounce}
-        />
         <ThemeProvider>
-          {children}
+          <ToastProvider>
+            <LanguageProvider>
+              {children}
+            </LanguageProvider>
+          </ToastProvider>
         </ThemeProvider>
       </body>
     </html>
