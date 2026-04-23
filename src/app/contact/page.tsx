@@ -25,6 +25,7 @@ export default function Contact() {
         message: ""
     }
     const [formData, setFormData] = useState<typeof initialFormData>(initialFormData);
+    const { t } = useTranslation();
 
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
@@ -92,10 +93,10 @@ export default function Contact() {
                     />
                     <span className="transition-default text-lg font-bold tracking-widest">Téléphone</span>
                     <Link
-                        href={`tel:${devInfos.phoneNumber}`}
+                        href={`tel:${devInfos(t).phoneNumber}`}
                         className="transition-default text-lg dark:text-blue-200 text-cyan-500 font-bold tracking-widest"
                     >
-                        {devInfos.phoneNumber}
+                        {devInfos(t).phoneNumber}
                     </Link>
                 </div>
 
@@ -105,11 +106,11 @@ export default function Contact() {
                     />
                     <span className="transition-default text-lg font-bold tracking-widest">Email</span>
                     <Link
-                        href={`mailto:${devInfos.email}`}
+                        href={`mailto:${devInfos(t).email}`}
                         target="_blank"
                         className="transition-default text-lg dark:text-blue-200 text-cyan-500 font-bold tracking-widest"
                     >
-                        {devInfos.email}
+                        {devInfos(t).email}
                     </Link>
                 </div>
 
@@ -119,11 +120,11 @@ export default function Contact() {
                     />
                     <span className="transition-default text-lg font-bold tracking-widest">Whatsapp</span>
                     <Link
-                        href={`http://wa.me/${devInfos.phoneNumber}?text=${hour >= 16 ? "Bonsoir" : "Bonjour"} monsieur Le-duc. Je viens de visiter votre portfolio et j'aimerais discuter avec vous !`}
+                        href={`http://wa.me/${devInfos(t).phoneNumber}?text=${hour >= 16 ? "Bonsoir" : "Bonjour"} monsieur Le-duc. Je viens de visiter votre portfolio et j'aimerais discuter avec vous !`}
                         target="_blank"
                         className="transition-default text-lg dark:text-blue-200 text-cyan-500 font-bold tracking-widest"
                     >
-                        {devInfos.phoneNumber}
+                        {devInfos(t).phoneNumber}
                     </Link>
                 </div>
             </div>
@@ -241,24 +242,24 @@ export default function Contact() {
                         </p>
                         <div className="transition-default flex flex-wrap justify-evenly items-center gap-6">
                             <Link
-                                href={`mailto:${devInfos.email}`}
+                                href={`mailto:${devInfos(t).email}`}
                                 className="transition-default flex items-center gap-2 dark:text-blue-200 text-cyan-500 text-base tracking-[4px] font-bold dark:lg:hover:text-blue-100 lg:hover:text-cyan-500/60 lg:hover:underline"
                             >
                                 <FaEnvelopeCircleCheck
                                     className="transition-default text-3xl"
                                 />
                                 <span>
-                                    {devInfos.email}
+                                    {devInfos(t).email}
                                 </span>
                             </Link>
                             <Link
-                                href={`tel:${devInfos.phoneNumber}`}
+                                href={`tel:${devInfos(t).phoneNumber}`}
                                 className="transition-default flex items-center gap-2 dark:text-blue-200 text-cyan-500 text-base tracking-[4px] font-bold dark:lg:hover:text-blue-100 lg:hover:text-cyan-500/60 lg:hover:underline"
                             >
                                 <FaPhoneVolume
                                     className="transition-default text-2xl"
                                 />
-                                {devInfos.phoneNumber}
+                                {devInfos(t).phoneNumber}
                             </Link>
                         </div>
                     </div>

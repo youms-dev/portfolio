@@ -18,10 +18,9 @@ export default function Loading() {
             center
             navigation={false}
             spaceTop={false}
-
         >
             <RingLoader
-                color={appTheme === "dark" ? "white" : "oklch(71.5% 0.143 215.2"}
+                color={appTheme === "dark" ? "rgba(255, 255, 255, .9)" : "rgba(0, 0, 0, .9)"}
                 size={80}
             />
         </Container>

@@ -8,6 +8,9 @@ import { FaArrowRotateRight } from 'react-icons/fa6';
 import { BgGrid } from './components/bg-grid';
 import { Button } from './components/button';
 import { Container } from './components/container';
+import { useTranslation } from 'react-i18next';
+import { Component } from './components/component';
+import { Animated } from './types/enum';
 
 export default function Error({
     error,
@@ -16,11 +19,12 @@ export default function Error({
     error: Error & { digest?: string }
     reset: () => void
 }) {
+    const router = useRouter();
+    const { t } = useTranslation();
+
     useEffect(() => {
         console.error(error)
     }, [error])
-
-    const router = useRouter();
 
     return (
         <Container
@@ -35,33 +39,46 @@ export default function Error({
             )}>
                 😥
             </p>
-            <h1 className={clsx(
-                "section-animate",
-                "transition-default text-center text-lg"
-            )}>Une erreur s&rsquo;est produite</h1>
-            <div className={clsx(
-                "section-animate",
-                'transition-default w-full flex justify-center items-center gap-5'
-            )}>
+
+            <Component
+                component="h1"
+                className={clsx(
+                    "section-animate",
+                    "transition-default text-center text-lg"
+                )}
+            >
+                {t("error")}
+            </Component>
+
+            <Component
+                animated={Animated.SECTION}
+                className={clsx(
+                    'transition-default w-full flex justify-center items-center gap-5 mt-5'
+                )}
+            >
                 <Button
-                    size='w-50 h-14'
+                    width={150}
                     onClick={() => reset()}
                 >
-                    <FaArrowRotateRight />
-                    <span
-                        className="ml-3"
+                    <FaArrowRotateRight className='transition-default dark:text-black/80 text-white/80 dark:lg:group-hover/button:white/80 lg:group-hover/button:text-black/80' />
+                    <Component
+                        component="span"
+                        className="transition-default dark:text-black/80 text-white/80 dark:lg:group-hover/button:white/80 lg:group-hover/button:text-black/80 ml-3"
                     >
-                        Réessayer
-                    </span>
+                        {t("retry")}
+                    </Component>
                 </Button>
-                <Button
-                    size='w-50 h-14'
-                    onClick={() => router.push("/")}
-                >
-                    <FaHouseUser />
-                    <span className="ml-3">Accueil</span>
+
+                <Button onClick={() => router.push("/")}>
+                    <FaHouseUser className='transition-default dark:text-black/80 text-white/80 dark:lg:group-hover/button:white/80 lg:group-hover/button:text-black/80' />
+                    <Component
+                        component="span"
+                        className="transition-default dark:text-black/80 text-white/80 dark:lg:group-hover/button:white/80 lg:group-hover/button:text-black/80 ml-3"
+                    >
+                        {t("back_to_home")}
+                    </Component>
                 </Button>
-            </div>
+            </Component>
         </Container>
     )
 }

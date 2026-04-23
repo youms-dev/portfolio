@@ -24,9 +24,10 @@ export const Desc = ({ sentence: str, className = "", ...rest }: DescProps) => {
         if (!ref.current) return;
         const wordClassName = [
             "transition-default",
-            "dark:text-blue-200",
-            "text-cyan-500",
+            "dark:text-white",
+            "text-black",
             "font-bold",
+            "tracking-wide",
         ];
         const regex = /__[^\s]+__/g;
         let wordsFound = str.match(regex);

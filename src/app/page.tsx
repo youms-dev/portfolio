@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FaCalendarAlt, FaCalendarCheck, FaCheck, FaGraduationCap, FaLink, FaUserTie } from "react-icons/fa";
 import { FaGrip } from "react-icons/fa6";
 import Typed from "typed.js";
@@ -26,17 +27,18 @@ export default function Page() {
   const router = useRouter();
   const typedRef = useRef<HTMLHeadingElement>(null);
   const [activeView, setActiveView] = useState<"grid" | "date">("date");
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     const typed = new Typed(typedRef.current, {
-      strings: devInfos.typedjs,
+      strings: devInfos(t).typedjs,
       typeSpeed: 50,
       loop: true,
       cursorChar: ""
     });
 
     return () => typed.destroy();
-  }, []);
+  }, [i18n.language]);
 
   return (
     <Container centerX>
@@ -56,15 +58,15 @@ export default function Page() {
           <h1 className="transition-default text-2xl text-left">
             <span>
               {
-                new Date().getHours() >= 16 ? "Bonsoir" : "Bonjour"
+                new Date().getHours() >= 16 ? t("goodbye") : t("hello")
               },
             </span>
             <p className="my-2">
               <span>
-                je suis
+                {t("iam")} &nbsp;
               </span>
               <span
-                className="transition-default relative font-['papyrus'] dark:font-normal font-bold mx-4 dark:text-blue-200 text-black/80 before:transition-default before:absolute before:top-0 before:left-0 before:-translate-x-6 before:-translate-y-1 before:w-4 before:h-4 before:border-l-2 before:border-t-2 dark:before:border-blue-200 before:border-black/80 after:transition-default after:absolute after:bottom-0 after:right-0 after:translate-x-6 after:translate-y-1 after:w-4 after:h-4 after:border-r-2 after:border-b-2 dark:after:border-blue-200 after:border-black/80"
+                className="transition-default relative font-['papyrus'] dark:font-normal font-bold mx-4 dark:text-white text-black/80 before:transition-default before:absolute before:top-0 before:left-0 before:-translate-x-6 before:-translate-y-1 before:w-4 before:h-4 before:border-l-2 before:border-t-2 dark:before:border-white after:transition-default after:absolute after:bottom-0 after:right-0 after:translate-x-6 after:translate-y-1 after:w-4 after:h-4 after:border-r-2 after:border-b-2 dark:after:border-white after:border-black/80"
               >
                 Youmbi Le-duc
               </span>
@@ -76,21 +78,27 @@ export default function Page() {
             className="transition-default inline-block w-full h-7 text-xl text-left dark:text-blue-200 text-black/80 font-['papyrus'] dark:font-normal font-bold"
           />
 
-          <p className="transition-default text-justify">
-            Je suis développeur web et mobile full stack passionné par la création d&rsquo;applications web. J&rsquo;ai une solide expérience dans le développement d&rsquo;applications front-end et back-end, ainsi que dans la conception de bases de données. Je suis toujours à la recherche de nouveaux défis et d&rsquo;opportunités pour apprendre et grandir en tant que développeur.
-          </p>
+          <Component
+            component="p"
+            className="transition-default text-justify"
+          >
+            {t("home_about_me")}
+          </Component>
 
-          <div className="transition-default flex justify-center items-center rounded-2xl dark:bg-black bg-white mt-3">
+          <Component
+            animated={Animated.SECTION}
+            className="transition-default flex justify-center items-center rounded-2xl dark:bg-black bg-white mt-3"
+          >
             <Button onClick={() => router.push("/?search=about")}>
               <Component
                 component="span"
                 animated={undefined}
                 className="transition-default dark:text-black/80 text-white/80 font-bold tracking-wider dark:lg:group-hover/button:text-white/80 lg:group-hover/button:text-black/80"
               >
-                Plus à propos de moi
+                {t("home_more_about_me")}
               </Component>
             </Button>
-          </div>
+          </Component>
         </Component>
 
         <Component
@@ -116,7 +124,7 @@ export default function Page() {
 
       <SkillsCarrousel />
 
-      {/* ************* À propos ************* */}
+      {/* ************* About ************* */}
 
       <Component className={clsx(
         "transition-default w-full flex flex-col justify-center items-start gap-2 sm:px-8 px-3 mt-5"
@@ -128,98 +136,159 @@ export default function Page() {
             "transition-default flex items-center gap-5"
           )}
         >
-          <Title id="about">À propos de moi</Title>
+          <Title id="about">
+            {t("about_title")}
+          </Title>
           <FaLink
-            className="transition-default text-2xl dark:text-white text-cyan-500 opacity-0 lg:group-hover:opacity-100"
+            className="transition-default text-2xl dark:text-white text-black opacity-0 lg:group-hover:opacity-100"
           />
         </Link>
 
         <div className="transition-default mt-10">
-          <span>Moi c&rsquo;est &nbsp;</span>
-          <span className="transition-default relative dark:text-blue-200 text-cyan-500 text-xl font-['papyrus'] font-bold mx-6 before:absolute before:top-0 before:left-0 before:-translate-x-6 before:-translate-y-1 before:w-4 before:h-4 before:border-l-2 before:border-t-2 dark:before:border-blue-200 before:border-cyan-500 after:absolute after:bottom-0 after:right-0 after:translate-x-6 after:translate-y-1 after:w-4 after:h-4 after:border-r-2 after:border-b-2 dark:after:border-blue-200 after:border-cyan-500">
+          <Component
+            component="span"
+          >
+            {t("iam")} &nbsp;
+          </Component>
+          <span className="transition-default relative dark:text-white text-black text-xl font-['papyrus'] font-bold mx-6 before:absolute before:top-0 before:left-0 before:-translate-x-6 before:-translate-y-1 before:w-4 before:h-4 before:border-l-2 before:border-t-2 dark:before:border-white before:border-black after:absolute after:bottom-0 after:right-0 after:translate-x-6 after:translate-y-1 after:w-4 after:h-4 after:border-r-2 after:border-b-2 dark:after:border-white after:border-black">
             Youmbi Le-duc
           </span>
-          &nbsp; et je suis
-          <span className="transition-default dark:text-blue-200 text-cyan-500 font-extrabold ml-1">Développeur web et mobile full stack.</span>
+          &nbsp; {t("iam_dev")}&nbsp;
+          <Component
+            component="span"
+            className="transition-default dark:text-white text-black font-extrabold ml-1"
+          >
+            {devInfos(t).typedjs[devInfos(t).typedjs.length - 1]}.
+          </Component>
         </div>
 
-        <p className="transition-default mt-3">
-          Ayant débuté ma carrière en 2022 dans le monde du développement d&rsquo;applications et plus particulièrement dans le monde du développement web, j&rsquo;ai développé plusieurs applications aussi solides, robustes et flexibles les unes que les autres, qui m'ont permis d'avoir une solide expérience dans le monde du développement d&rsquo;application que ce soit web ou mobile et me permettant également de me déclarer comme étant full stack.
-        </p>
+        <Component
+          component="p"
+          className="transition-default mt-3"
+        >
+          {t("about_content")}
+        </Component>
 
         <div className="transition-default w-full flex flex-wrap justify-start items-start sm:gap-22 gap-16 mt-4">
           <Component className={clsx(
             "transition-default flex flex-col gap-10"
           )}>
             <div className=" transition-default flex flex-wrap justify-between gap-16">
-
               <Component
                 component="ul"
+                animated={Animated.SECTION}
                 className={clsx(
                   "transition-default flex flex-col gap-6"
                 )}
               >
-                <li className="transition-default relative w-full before:absolute before:-bottom-2 before:left-0 before:w-full before:h-1 before:bg-gray-500/40">
-                  Niveau d&rsquo;étude :
-                  <span className="transition-default dark:text-blue-200 text-cyan-500 ml-2">
-                    {devInfos.studyLevel}
+                <Component
+                  component="li"
+                  className="transition-default relative w-full flex flex-wrap items-center gap-2 before:absolute before:-bottom-2 before:left-0 before:w-full before:h-1 before:bg-gray-500/40"
+                >
+                  {t("education_level")} :
+                  <span className="transition-default dark:text-white text-black">
+                    {devInfos().studyLevel}
                   </span>
-                </li>
-                <li className="transition-default relative w-full before:absolute before:-bottom-2 before:left-0 before:w-full before:h-1 before:bg-gray-500/40">
-                  Pays : <span className="transition-default dark:text-blue-200 text-cyan-500 ml-2">{devInfos.country}</span>
-                </li>
-                <li className="transition-default relative w-full before:absolute before:-bottom-2 before:left-0 before:w-full before:h-1 before:bg-gray-500/40">
-                  Ville : <span className="transition-default dark:text-blue-200 text-cyan-500 ml-2">{devInfos.town}</span>
-                </li>
+                </Component>
+                <Component
+                  component="li"
+                  className="transition-default relative w-full flex flex-wrap items-center gap-2 before:absolute before:-bottom-2 before:left-0 before:w-full before:h-1 before:bg-gray-500/40"
+                >
+                  {t("country")} :
+                  <span className="transition-default dark:text-white text-black">
+                    {devInfos().country}
+                  </span>
+                </Component>
+                <Component
+                  component="li"
+                  className="transition-default relative w-full flex flex-wrap items-center gap-2 before:absolute before:-bottom-2 before:left-0 before:w-full before:h-1 before:bg-gray-500/40"
+                >
+                  {t("town")} :
+                  <span className="transition-default dark:text-white text-black">
+                    {devInfos().town}
+                  </span>
+                </Component>
               </Component>
 
               <Component
                 component="ul"
+                animated={Animated.SECTION}
                 className={clsx(
                   "transition-default flex flex-col justify-center items-start gap-6"
                 )}
               >
-                <li className="transition-default relative w-full before:absolute before:-bottom-2 before:left-0 before:w-full before:h-1 before:bg-gray-500/40">
-                  <span>Dev email :</span>
-                  &nbsp;
-                  <Link href={`mailto:"Youmbi Le-duc" <${devInfos.devEmail}>`} className="transition-default dark:text-blue-200 text-cyan-500 underline ml-2 tracking-[3px] font-bold">
-                    {devInfos.devEmail}
+                <Component
+                  component="li"
+                  className="transition-default relative w-full flex flex-wrap items-center gap-2 before:absolute before:-bottom-2 before:left-0 before:w-full before:h-1 before:bg-gray-500/40"
+                >
+                  <Component component="span">
+                    {t("dev_email")} :
+                  </Component>
+                  <Link
+                    href={`mailto:"Youmbi Le-duc" <${devInfos().devEmail}>`}
+                    className="transition-default dark:text-white text-black underline tracking-[3px] font-bold"
+                  >
+                    {devInfos().devEmail}
                   </Link>
-                </li>
-                <li className="transition-default relative w-full before:absolute before:-bottom-2 before:left-0 before:w-full before:h-1 before:bg-gray-500/40">
-                  <span>Email professionnelle :</span>
-                  <Link href={`mailto:"Youmbi Le-duc" <${devInfos.email}>`} className="transition-default dark:text-blue-200 text-cyan-500 underline ml-2 tracking-[3px] font-bold">
-                    {devInfos.email}
+                </Component>
+                <Component
+                  component="li"
+                  className="transition-default relative w-full flex flex-wrap items-center gap-2 before:absolute before:-bottom-2 before:left-0 before:w-full before:h-1 before:bg-gray-500/40"
+                >
+                  <Component component="span">
+                    {t("professional_email")} :
+                  </Component>
+                  <Link href={`mailto:"Youmbi Le-duc" <${devInfos().email}>`} className="transition-default dark:text-white text-black underline tracking-[3px] font-bold">
+                    {devInfos().email}
                   </Link>
-                </li>
-                <li className="transition-default relative w-full before:absolute before:-bottom-2 before:left-0 before:w-full before:h-1 before:bg-gray-500/40">
-                  <span>Téléphone :</span>
-                  <span className="transition-default dark:text-blue-200 text-cyan-500 ml-2">
-                    <Link href="tel:+237690552385" className="transition-default tracking-[3px] font-bold">{devInfos.phoneNumber}</Link>
-                  </span>
-                </li>
-                <li className="transition-default relative w-full before:absolute before:-bottom-2 before:left-0 before:w-full before:h-1 before:bg-gray-500/40">
-                  <span>Statut :</span>
-                  <span className="transition-default dark:text-blue-200 text-cyan-500 ml-2 font-bold">{devInfos.status}</span>
-                </li>
+                </Component>
+                <Component
+                  component="li"
+                  className="transition-default relative w-full flex flex-wrap items-center gap-2 before:absolute before:-bottom-2 before:left-0 before:w-full before:h-1 before:bg-gray-500/40"
+                >
+                  <Component component="span">
+                    {t("phone")} :
+                  </Component>
+                  <Link
+                    href={`tel:+237690552385`}
+                    className="transition-default dark:text-white text-black underline tracking-[3px] font-bold"
+                  >
+                    {devInfos().phoneNumber}
+                  </Link>
+                </Component>
+                <Component
+                  component="li"
+                  className="transition-default relative w-full flex flex-wrap items-center gap-2 before:absolute before:-bottom-2 before:left-0 before:w-full before:h-1 before:bg-gray-500/40"
+                >
+                  <Component component="span">
+                    {t("status")} :
+                  </Component>
+                  <Component
+                    component="span"
+                    className="transition-default dark:text-white text-black ml-2 font-bold"
+                  >
+                    {devInfos().status}
+                  </Component>
+                </Component>
               </Component>
             </div>
 
             <Link
-              href={`http://wa.me/${devInfos.phoneNumber}?text=${hour >= 16 ? "Bonsoir" : "Bonjour"} monsieur Le-duc. Je viens de visiter votre portfolio et j'aimerais discuter avec vous !`}
+              href={`http://wa.me/${devInfos().phoneNumber}?text=${hour >= 16 ? t("goodbye") : t("hello")} ${t("presentation_text")}`}
               target="_blank"
               className={clsx(
-                "section-animate",
-                "transition-default relative w-2/3 h-[50px] bg-transparent mt-2 dark:text-blue-200 text-cyan-500 border-b-2 dark:border-blue-200 border-cyan-500 rounded-xl flex justify-center items-center flex-nowrap lg:hover:shadow-sm dark:lg:hover:shadow-blue-200 hover:shadow-cyan-500 active:scale-90 lg:before:transition-all lg:before:duration-500 lg:before:absolute lg:before:top-0 lg:before:left-1/2 lg:before:border-t-2 lg:dark:before:border-blue-200 lg:before:border-cyan-500 lg:before:rounded-xl lg:before:w-0 lg:before:h-2 lg:hover:before:w-[95%] lg:hover:before:left-1"
+                "section-animated",
+                "transition-default relative w-80 h-[50px] bg-transparent mt-2 dark:text-white text-black border-b-2 dark:border-white border-black rounded-xl flex justify-center items-center flex-nowrap lg:hover:shadow-sm dark:lg:hover:shadow-white hover:shadow-black active:scale-90 lg:before:transition-all lg:before:duration-500 lg:before:absolute lg:before:top-0 lg:before:left-1/2 lg:before:border-t-2 lg:dark:before:border-white lg:before:border-black lg:before:rounded-xl lg:before:w-0 lg:before:h-2 lg:hover:before:w-[95%] lg:hover:before:left-1"
               )}
             >
               <Component component="span">
-                Discuter avec moi
+                {t("discuss_with_me")}
               </Component>
             </Link>
 
             <Component
               component="ul"
+              animated={Animated.SECTION}
               className={clsx(
                 "transition-default w-2/3 flex flex-col justify-center items-start gap-6"
               )}
@@ -232,11 +301,11 @@ export default function Page() {
                         {key[0]}
                         &nbsp;
                         :
-                        <span className="transition-default dark:text-blue-200 text-cyan-500">{key[1]}%</span>
+                        <span className="transition-default dark:text-white text-black">{key[1]}%</span>
                       </div>
                       <div className="w-full h-2 bg-gray-500/40 rounded-full overflow-hidden">
                         <div
-                          className="transition-default h-full bg-gradient-to-r from-black/80 dark:to-blue-200 to-cyan-500 rounded-full"
+                          className="transition-default h-full bg-gradient-to-r dark:from-black from-white dark:to-white/80 to-black/80 rounded-full"
                           style={{ width: `${key[1]}%` }}
                         ></div>
                       </div>
@@ -249,6 +318,7 @@ export default function Page() {
 
           <Component
             component="ul"
+            animated={Animated.SECTION}
             className={clsx(
               "transition-default w-[265px] flex flex-col justify-center items-start gap-6"
             )}
@@ -261,11 +331,11 @@ export default function Page() {
                       {child.technology.name}
                       &nbsp;
                       :
-                      <span className="transition-default dark:text-blue-200 text-cyan-500">{child.percent}%</span>
+                      <span className="transition-default dark:text-white text-black">{child.percent}%</span>
                     </div>
                     <div className="transition-default w-full h-2 bg-gray-500/40 rounded-full overflow-hidden">
                       <div
-                        className="transition-default h-full bg-gradient-to-r from-black/80 dark:to-blue-200 to-cyan-500 rounded-full"
+                        className="transition-default h-full bg-gradient-to-r dark:from-black from-white dark:to-white/80 to-black/80 rounded-full"
                         style={{ width: `${child.percent}%` }}
                       />
                     </div>
@@ -281,11 +351,13 @@ export default function Page() {
 
       <Component
         id="route"
+        animated={Animated.SECTION}
         className={clsx(
           "transition-default w-full flex items-center gap-5 sm:px-8 px-3 mb-5"
         )}
       >
-        <div
+        <Component
+          animated={Animated.LEFT}
           onClick={() => setActiveView("grid")}
           className={clsx(
             "transition-default relative flex gap-2 items-center px-3 py-2 border dark:border-white/20 border-black/20 rounded-2xl cursor-pointer lg:hover:shadow-lg lg:hover:dark:shadow-white/20 lg:hover:shadow-black/20 active:scale-90"
@@ -301,11 +373,18 @@ export default function Page() {
             )
           }
           <FaGrip
-            className="transition-default sm:text-3xl text-xl dark:text-blue-200 text-cyan-500"
+            className="transition-default sm:text-3xl text-xl"
           />
-          <span className="transition-default sm:text-lg dark:text-blue-200 text-cyan-500 font-extrabold tracking-widest">Grille</span>
-        </div>
-        <div
+          <Component
+            component="span"
+            className="transition-default sm:text-lg font-extrabold tracking-widest"
+          >
+            {t("grid")}
+          </Component>
+        </Component>
+
+        <Component
+          animated={Animated.RIGHT}
           onClick={() => setActiveView("date")}
           className={clsx(
             "transition-default relative flex gap-2 items-center px-3 py-2 border dark:border-white/20 border-black/20 rounded-2xl cursor-pointer lg:hover:shadow-lg lg:hover:dark:shadow-white/20 lg:hover:shadow-black/20 active:scale-90"
@@ -321,16 +400,24 @@ export default function Page() {
             )
           }
           <FaCalendarCheck
-            className="transition-default sm:text-3xl text-xl dark:text-blue-200 text-cyan-500"
+            className="transition-default sm:text-3xl text-xl"
           />
-          <span className="transition-default sm:text-lg dark:text-blue-200 text-cyan-500 font-extrabold tracking-widest">Dates</span>
-        </div>
+          <Component
+            component="span"
+            className="transition-default sm:text-lg font-extrabold tracking-widest"
+          >
+            {t("dates")}
+          </Component>
+        </Component>
       </Component>
 
-      <Component className={clsx(
-        "transition-default w-full flex-col mb-5 sm:px-8 px-3",
-        activeView === "grid" ? "flex" : "hidden"
-      )}>
+      <Component
+        animated={Animated.SECTION}
+        className={clsx(
+          "transition-default w-full flex-col mb-5 sm:px-8 px-3",
+          activeView === "grid" ? "flex" : "hidden"
+        )}
+      >
         <Link
           href="/?search=route"
           className={clsx(
@@ -344,8 +431,15 @@ export default function Page() {
                 "transition-default sm:text-4xl text-3xl"
               )}
             />
-            <span>Parcours</span>
+
+            <Component
+              component="span"
+              className="transition-default sm:text-lg font-extrabold tracking-widest"
+            >
+              {t("route")}
+            </Component>
           </Title>
+
           <FaLink
             className="transition-default text-2xl dark:text-white text-cyan-500 opacity-0 lg:group-hover:opacity-100"
           />
@@ -355,7 +449,7 @@ export default function Page() {
           "transition-default w-full grid grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-10 mt-13"
         )}>
           {
-            parcours.map((child) => (
+            parcours(t).map((child) => (
               <Component
                 key={child.title}
                 className={clsx(
@@ -383,7 +477,12 @@ export default function Page() {
             <FaUserTie
               className="transition-default sm:text-2xl"
             />
-            <span>Experience</span>
+            <Component
+              component="span"
+              className="transition-default sm:text-lg font-extrabold tracking-widest"
+            >
+              {t("experience")}
+            </Component>
           </Title>
           <FaLink
             className="transition-default text-2xl dark:text-white text-cyan-500 opacity-0 lg:group-hover:opacity-100"
@@ -394,7 +493,7 @@ export default function Page() {
           "transition-default w-full grid grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-10 mt-13"
         )}>
           {
-            experiences.map((child) => (
+            experiences(t).map((child) => (
               <Component
                 key={child.title}
                 className={clsx(
@@ -413,14 +512,19 @@ export default function Page() {
         </Component>
       </Component>
 
-      <Component className={clsx(
-        "transition-default w-full min-h-[500px] grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] mb-5 gap-6 sm:px-8 px-3",
-        activeView === "date" ? "grid" : "hidden"
-      )}>
-        <Component className={clsx(
-          Animated.LEFT,
-          "transition-default h-full flex flex-col justify-start items-start"
-        )}>
+      <Component
+        animated={Animated.SECTION}
+        className={clsx(
+          "transition-default w-full min-h-[500px] grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] mb-5 gap-6 sm:px-8 px-3",
+          activeView === "date" ? "grid" : "hidden"
+        )}
+      >
+        <Component
+          animated={Animated.LEFT}
+          className={clsx(
+            "transition-default h-full flex flex-col justify-start items-start"
+          )}
+        >
           <Link
             href="/?search=route"
             className={clsx(
@@ -432,31 +536,42 @@ export default function Page() {
               <FaGraduationCap
                 className="transition-default sm:text-4xl text-3xl"
               />
-              <span>Parcours</span>
+              <Component
+                component="span"
+                className="transition-default sm:text-lg font-extrabold tracking-widest"
+              >
+                {t("route")}
+              </Component>
             </Title>
-            <FaLink
-              className="transition-default text-2xl dark:text-white text-cyan-500 opacity-0 lg:group-hover:opacity-100"
-            />
+            <FaLink className="transition-default text-2xl dark:text-white text-black opacity-0 lg:group-hover:opacity-100" />
           </Link>
 
-          <div className="transition-default flex flex-col justify-center items-center dark:bg-gray-900/40 bg-cyan-500/10 rounded-2xl p-2 pt-10 text-justify border dark:border-white/20 border-black/20 shadow-lg dark:shadow-white/20 shadow-black/20 mt-9">
+          <div className="transition-default flex flex-col justify-center items-center dark:bg-black bg-white/80 rounded-2xl p-2 pt-10 text-justify border dark:border-white/20 border-black/20 shadow-lg dark:shadow-white/20 shadow-black/20 dark:opacity-85 mt-9">
             {
-              parcours.map((child) => (
+              parcours(t).map((child) => (
                 <Div key={createId()}>
-                  <span className="transition-default flex justify-start items-center gap-2 text-bold dark:text-blue-200 text-cyan-500">
+                  <span className="transition-default flex justify-start items-center gap-2 text-bold dark:text-white/40 text-black/30 font-medium text-[14px]">
                     <FaCalendarAlt />
-                    &nbsp;
                     {
                       child.year && child.year
                       ||
-                      <span>
-                        {child?.begin} à {child?.end}
-                      </span>
+                      <Component component="span">
+                        {t("from")}
+                        &nbsp;
+                        {child?.begin}
+                        &nbsp;
+                        {t("to")}
+                        &nbsp;
+                        {child?.end}
+                      </Component>
                     }
                   </span>
-                  <p className="transition-default text-bold dark:text-blue-200 text-cyan-500">
+                  <Component
+                    component="p"
+                    className="transition-default text-bold dark:text-white text-black font-medium tracking-wide"
+                  >
                     {child.title}
-                  </p>
+                  </Component>
                   <Desc
                     sentence={child.description}
                   />
@@ -466,11 +581,12 @@ export default function Page() {
           </div>
         </Component>
 
-        <Component className={clsx(
-          Animated.RIGHT,
-          "transition-default h-full flex flex-col justify-start items-start"
-        )}>
-
+        <Component
+          animated={Animated.RIGHT}
+          className={clsx(
+            "transition-default h-full flex flex-col justify-start items-start"
+          )}
+        >
           <Link
             href="/?search=route"
             className={clsx(
@@ -482,23 +598,40 @@ export default function Page() {
               <FaUserTie
                 className="transition-default sm:text-2xl"
               />
-              <span>Expérience</span>
+              <Component
+                component="span"
+                className="transition-default sm:text-lg font-extrabold tracking-widest"
+              >
+                {t("experience")}
+              </Component>
             </Title>
             <FaLink
-              className="transition-default text-2xl dark:text-white text-cyan-500 opacity-0 lg:group-hover:opacity-100"
+              className="transition-default text-2xl dark:text-white text-black opacity-0 lg:group-hover:opacity-100"
             />
           </Link>
 
-          <div className="transition-default flex flex-col justify-center items-center dark:bg-gray-900/40 bg-cyan-500/10 rounded-2xl p-2 pt-10 text-justify border dark:border-white/20 border-black/20 shadow-lg dark:shadow-white/20 shadow-black/20 mt-10">
+          <div className="transition-default flex flex-col justify-center items-center dark:bg-black bg-white/80 rounded-2xl p-2 pt-10 text-justify border dark:border-white/20 border-black/20 shadow-lg dark:shadow-white/20 shadow-black/20 dark:opacity-85 mt-11">
             {
-              experiences.map((child) => (
+              experiences(t).map((child) => (
                 <Div key={createId()}>
-                  <span className="transition-default flex justify-start items-center gap-2 text-bold dark:text-blue-200 text-cyan-500">
-                    <FaCalendarAlt /> {child?.begin} au {child?.end}
+                  <span className="transition-default flex justify-start items-center gap-2 text-bold dark:text-white/40 text-black/30 font-medium text-[14px]">
+                    <FaCalendarAlt />
+                    <Component component="span">
+                      {t("from")}
+                      &nbsp;
+                      {child?.begin}
+                      &nbsp;
+                      {t("to")}
+                      &nbsp;
+                      {child?.end}
+                    </Component>
                   </span>
-                  <p className="transition-default text-bold dark:text-blue-200 text-cyan-500">
+                  <Component
+                    component="p"
+                    className="transition-default text-bold dark:text-white text-black font-medium tracking-wide"
+                  >
                     {child.title}
-                  </p>
+                  </Component>
                   <Desc
                     sentence={child.description}
                   />

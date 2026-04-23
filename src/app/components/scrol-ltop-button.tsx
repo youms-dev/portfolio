@@ -54,13 +54,13 @@ export const ScrollTopButton = () => {
         <span
             ref={ref}
             className={clsx(
-                "transition-default fixed right-5 sm:bottom-18 bottom-10 text-4xl lg:hover:scale-110 lg:hover:opacity-100 active:scale-[transform:_scale(.8)_!important] cursor-pointer",
+                "transition-default fixed right-5 sm:bottom-18 bottom-10 text-4xl lg:hover:scale-110 lg:hover:opacity-100 active:scale-[.9_!important] cursor-pointer",
                 visible ? "opacity-50 z-10" : "opacity-0 -z-10"
             )}
             onClick={() => scrollTop()}
         >
             <FaChevronCircleUp
-            className="transition-default dark:text-white text-cyan-500"
+                className="transition-default dark:text-white text-black/80"
             />
         </span>
     );

@@ -32,12 +32,10 @@ const NavLink = ({ name, href, activeName, Icon }: Props) => {
                 pathname === (activeName ? activeName : `/${name}`) ? "lg:hover:scale-95 before:w-[130%] after:w-full lg:hover:before:w-0 lg:hover:after:w-0" : "before:w-0 after:w-0 lg:hover:before:w-[130%] lg:hover:after:w-full",
             )}
         >
-            <Icon
-                className={clsx(
-                    "transition-default text-xl",
-                    pathname === (activeName ? activeName : `/${name}`) ? "max-md:text-white/70 dark:lg:group-hover:text-white lg:group-hover:text-black" : "max-md:text-white/70",
-                )}
-            />
+            <Icon className={clsx(
+                "transition-default text-xl",
+                pathname === (activeName ? activeName : `/${name}`) ? "max-md:text-white/70 dark:lg:group-hover:text-white lg:group-hover:text-black" : "max-md:text-white/70",
+            )} />
             <Component
                 component="span"
                 className={clsx(
@@ -141,14 +139,17 @@ export const Nav = () => {
             )}
         >
             <span
-                className="transition-default absolute left-0 bottom-0 h-[5px] bg-linear-to-r from-black dark:to-blue-200 to-cyan-500 rounded-r-4xl"
+                className="transition-default absolute left-0 bottom-0 h-[5px] bg-linear-to-r dark:from-black from-white/80 dark:to-white/80 to-black/80 rounded-r-4xl"
                 style={{
                     width: progressWidth,
                 }}
-            ></span>
+            />
 
             <div className="transition-default w-max h-full flex items-center shrink-0 max-md:gap-3">
-                <div className="transition-default relative size-15 rounded-full">
+                <Link
+                    href="/"
+                    className="transition-default relative size-15 max-md:hidden rounded-full"
+                >
                     <Image
                         src={"/img/logo.webp"}
                         alt="Logo"
@@ -157,11 +158,11 @@ export const Nav = () => {
                         sizes="(max-width: 800px) 50vw, 100vw"
                         className="transition-default rounded-full"
                     />
-                </div>
+                </Link>
 
                 <Link
                     href="/"
-                    className="transition-default relative bottom-2 font-['papyrus'] text-2xl max-md:text-xl font-extrabold text-transparent bg-clip-text bg-linear-to-br dark:from-white/80 from-black/80 dark:via-white/10 dark:via-50% via-black/30 via-60% dark:to-white/80 dark:to-100% to-black/80 to-80% dark:lg:hover:text-white/80 lg:hover:text-black/80 before:transition-default before:absolute before:left-0 before:-bottom-1 before:w-2/3 before:h-[2px] dark:before:bg-linear-to-br before:bg-linear-to-r dark:before:from-white/80 before:from-black/80 dark:before:via-black/30 before:via-black/10 dark:before:to-white/80 before:to-black/80 dark:lg:hover:before:bg-white/80 lg:hover:before:bg-black/80 after:transition-default after:absolute after:left-0 after:-bottom-3 after:w-1/3 after:h-[2px] dark:after:bg-linear-to-br after:bg-linear-to-r dark:after:from-white/80 after:from-black/80 dark:after:via-black/30 after:via-black/20 dark:after:to-white/80 after:to-black/80 dark:lg:hover:after:bg-white/80 lg:hover:after:bg-black/80"
+                    className="transition-default relative bottom-2 font-['papyrus'] md:text-2xl min-[500px]:text-xl text-base font-extrabold text-transparent bg-clip-text bg-linear-to-br dark:from-white/80 from-black/80 dark:via-white/10 dark:via-50% via-black/30 via-60% dark:to-white/80 dark:to-100% to-black/80 to-80% max-[500px]:translate-y-2 dark:lg:hover:text-white/80 lg:hover:text-black/80 before:transition-default before:absolute before:left-0 before:-bottom-1 before:w-2/3 before:h-[2px] dark:before:bg-linear-to-br before:bg-linear-to-r dark:before:from-white/80 before:from-black/80 dark:before:via-black/30 before:via-black/10 dark:before:to-white/80 before:to-black/80 dark:lg:hover:before:bg-white/80 lg:hover:before:bg-black/80 after:transition-default after:absolute after:left-0 after:-bottom-3 after:w-1/3 after:h-[2px] dark:after:bg-linear-to-br after:bg-linear-to-r dark:after:from-white/80 after:from-black/80 dark:after:via-black/30 after:via-black/20 dark:after:to-white/80 after:to-black/80 dark:lg:hover:after:bg-white/80 lg:hover:after:bg-black/80"
                 >
                     Youms&rsquo;s portfolio
                 </Link>

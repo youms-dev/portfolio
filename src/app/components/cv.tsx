@@ -1,12 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Button } from "./button";
-import { toast } from "react-toastify";
 import clsx from "clsx";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { FaDownload } from "react-icons/fa";
+import { toast } from "react-toastify";
+import { Button } from "./button";
+import { Component } from "./component";
 
 export const CV = () => {
     const [mounted, setMounted] = useState<boolean>(false);
+    const { t } = useTranslation();
 
     useEffect(() => {
         setMounted(true);
@@ -36,13 +40,21 @@ export const CV = () => {
     return (
         <div className={clsx(
             "section-animate",
-            "transition-default relative w-11/12 h-80 flex sm:flex-row flex-col-reverse items-center sm:gap-0 gap-3 my-20 before:transition-all before:duration-400 before:ease-in-out before:absolute before:top-0 before:left-0 before:w-full before:h-[2px] dark:before:bg-white/70 before:bg-black/70 before:z-20 before:-translate-y-10 after:ease-in-out after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] dark:after:bg-white/70 after:bg-black/70 after:z-20 after:translate-y-10"
+            "transition-default relative w-11/12 h-80 flex sm:flex-row flex-col-reverse items-center sm:gap-0 gap-3 my-20 dark:bg-black/70 bg-white/70 before:transition-all before:duration-400 before:ease-in-out before:absolute before:top-0 before:left-0 before:w-full before:h-[2px] dark:before:bg-white/70 before:bg-black/70 before:z-20 before:-translate-y-10 after:ease-in-out after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] dark:after:bg-white/70 after:bg-black/70 after:z-20 after:translate-y-10"
         )}>
             <div className={clsx(
                 "left-item",
                 "transition-default w-full h-full flex justify-center items-center dark:bg-black/70 z-10"
             )}>
-                <Button onClick={handleClick}>Télécharger mon CV</Button>
+                <Button onClick={handleClick}>
+                    <Component
+                        component="span"
+                        className="transition-default font-medium tracking-wider dark:text-black/80 text-white/80 dark:lg:group-hover/button:text-white/80 lg:group-hover/button:text-black/80"
+                    >
+                        {t("download_cv")}
+                    </Component>
+                    <FaDownload className="transition-default dark:text-black/80 text-white/80 dark:lg:group-hover/button:text-white/80 lg:group-hover/button:text-black/80" />
+                </Button>
             </div>
             <div className={clsx(
                 "right-item",

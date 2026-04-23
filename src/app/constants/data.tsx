@@ -1,6 +1,6 @@
 import { IconType } from "react-icons";
-import { FaDatabase, FaJs, FaLaravel, FaNodeJs, FaPhp, FaPython, FaReact, FaSquareJs } from "react-icons/fa6";
 import { FaCss3Alt } from "react-icons/fa";
+import { FaDatabase, FaJs, FaLaravel, FaNodeJs, FaPhp, FaPython, FaReact, FaSquareJs } from "react-icons/fa6";
 
 interface Skills {
     technology: {
@@ -94,52 +94,52 @@ export const skills: Skills[] = [
     },
 ];
 
-export const experiences: Experience[] = [
+export const experiences = (t: any): Experience[] => [
     {
         begin: "06 - 2023",
         end: "08 - 2023",
-        title: "Stage académique à AL-Consulting Sarl",
-        description: "J'ai effectué un stage dans l'entreprise __AL-Consulting__ __Sarl__ où j'ai appris à mieux manier l'outil informatique ceci se traduisant par le logiciel que nous utilisions dans ces lieux pour développer les applications de manière efficace à savoir __Visual__ __studio__ __code__. J'y ai également appris les règles de création et de gestion d'une base données avec le langage __SQL__ et aussi l'apprentissage à l'utilisation des bonnes pratiques dans les langages __Javascript__ et __PHP__."
+        title: t("internship_al_consulting"),
+        description: t("internship_al_consulting_desc")
     },
     {
         begin: "12 - 2024",
         end: "01 - 2025",
-        title: "Employé à Soif.",
-        description: "Certes l'entreprise __Soif__ n'exerce pas dans mon domaine (le génie logiciel), mais là-bas j'ai eu l'occasion d'expérimenter ce qu'est le monde professionnel et ainsi d'améliorer mon savoir-être et mon savoir-faire."
+        title: t("employee_soif"),
+        description: t("employee_soif_desc")
     },
     {
         begin: "01 - 2025",
         end: "03 - 2025",
-        title: "Stage professionnel à MT Consulting Sarl.",
-        description: "À __MT__ __Consulting__ __Sarl__, j'ai découvert le __python__ et par la suite appris à manier quelques modules assez simple de l'ERP __Odoo__."
+        title: t("internship_mt_consulting"),
+        description: t("internship_mt_consulting_desc")
     },
     {
         begin: "07 - 2025",
         end: "04 - 2026",
-        title: "Stage professionnel à NALA SECURITY CONSULTING.",
-        description: "À __NALA__ __SECURITY__ __CONSULTING__ j'ai utilisé mon expertise et le savoir dont je faisais déjà preuve pour mettre sur pied l'application web de celle-ci.\nCette application n'étant pas qu'un simple reflet des services qu'offre la structure, mais aussi un application où les utilisateurs ont la possibilité d'interagir entre eux et avec l'entreprise et peuvent également être en actualité sur les différentes nouvelles concernant celle-ci."
+        title: t("internship_nala_security_consulting"),
+        description: t("internship_nala_security_consulting_desc")
     },
 ];
 
-export const parcours: Way[] = [
+export const parcours = (t: any): Way[] => ([
     {
         year: "2022",
-        title: "Baccalauréat D",
-        description: "J'ai fait mes études secondaires au __lycée__ __classique__ __d'édéa__ (Région du littoral), où j'ai obtenu mon __baccalauréat__ __D__ avant de m'installer à Douala-Cameroun pour poursuivre mes études tertiaires."
+        title: t("baccalaureat_d"),
+        description: t("baccalaureat_d_desc")
     },
     {
         begin: "2022",
         end: "2024",
-        title: "BTS en Génie logiciel",
-        description: "Une fois mon Baccalauréat obtenu et peu de temps après mon installation dans la ville de __Douala__ (__Cameroun__), je me suis vu poursuivre mes études à l'__I__nstitut __U__niversitaire et __S__tratégique de l' __E__stuaire (__IUEs__ __/__ __Insam__) de ndokoti, où j'ai pu obtenir mon __BTS__ après deux ans d'études en génie logiciel."
+        title: t("bts"),
+        description: t("bts_desc")
     },
     {
         begin: "2024",
         end: "2025",
-        title: "Licence en Génie logiciel",
-        description: "Après l'obtention de mon __BTS__ dans le domaine où j'ai toujours voulu exercer, je me suis dit << si j'ai déjà un __BTS__ dans le domaine où je prévoyais exercer depuis tout petit, pourquoi ne pas prolonger jusqu'à la licence ? >> Et donc un an plus tard j'obtiens ma __licence__ __en__ __génie__ __logiciel__ comme prévu."
+        title: t("bachelor_degree"),
+        description: t("bachelor_degree_desc")
     },
-];
+]);
 
 export interface ProjectType {
     titre: string;
@@ -392,23 +392,43 @@ export const RN: ProjectType[] = [
     },
 ]
 
-export const devInfos = {
-    name: "Youmbi Le-duc",
-    pseudo: "Youms.dev",
-    email: "youmsdeveloper@gmail.com",
-    devEmail: "youms.dev@gmail.com",
-    phoneNumber: "+237690552385",
-    studyLevel: "Licence",
-    country: "Cameroun",
-    town: "Douala",
-    status: "Full stack",
-    typedjs: [
-        'Développeur front-end',
-        'Développeur back-end',
-        'Développeur web',
-        'Développeur mobile ^700',
-        'Développeur web et mobile full stack'
-    ]
+export const devInfos = (t: any | null = null) => {
+    if (t) return ({
+        name: "Youmbi Le-duc",
+        pseudo: "Youms.dev",
+        email: "youmsdeveloper@gmail.com",
+        devEmail: "youms.dev@gmail.com",
+        phoneNumber: "+237690552385",
+        studyLevel: "Licence",
+        country: "Cameroun",
+        town: "Douala",
+        status: "Full stack",
+        typedjs: [
+            t('dev_frontend'),
+            t('dev_backend'),
+            t('dev_web'),
+            `${t('dev_mobile')} ^700`,
+            t('dev_fullstack')
+        ]
+    })
+    else return {
+        name: "Youmbi Le-duc",
+        pseudo: "Youms.dev",
+        email: "youmsdeveloper@gmail.com",
+        devEmail: "youms.dev@gmail.com",
+        phoneNumber: "+237690552385",
+        studyLevel: "Licence",
+        country: "Cameroun",
+        town: "Douala",
+        status: "Full stack",
+        typedjs: [
+            "Développeur front-end",
+            "Développeur back-end",
+            "Développeur web",
+            "Développeur mobile ^700",
+            "Développeur web et mobile full stack"
+        ]
+    }
 }
 
 export const other = {

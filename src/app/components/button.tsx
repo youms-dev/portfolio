@@ -53,7 +53,8 @@ export const Button = ({ children, size, loading = false, ref, type = "button", 
             }}
             className={clsx(
                 "group/button",
-                "transition-default relative flex justify-center items-center flex-nowrap gap-2 dark:bg-white/80 bg-black/80 shrink-0 rounded-xl cursor-pointer p-3 disabled:opacity-70 disabled:cursor-not-allowed dark:lg:hover:bg-black/80 lg:hover:bg-white/80 disabled:lg:hover:translate-y-0 active:scale-80 disabled:active:scale-100 after:transition-default after:absolute after:-bottom-0 after:w-10/12 after:h-4 dark:after:bg-white/80 after:bg-black/80 after:rotate-x-80 after:blur-md after:translate-y-7",
+                "transition-default relative flex justify-center items-center flex-nowrap gap-2 dark:bg-white/80 bg-black/80 shrink-0 rounded-xl cursor-pointer p-3 border dark:border-white/20 border-black/20 disabled:opacity-80 disabled:cursor-not-allowed disabled:active:scale-100 after:transition-default after:absolute after:-bottom-0 after:w-10/12 after:h-4 dark:after:bg-white/80 after:bg-black/80 after:rotate-x-80 after:blur-md after:translate-y-7",
+                !loading && "dark:lg:hover:bg-black/80 lg:hover:bg-white/80 disabled:lg:hover:translate-y-0 active:scale-80",
             )}
         >
             {

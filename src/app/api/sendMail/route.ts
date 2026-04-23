@@ -51,7 +51,7 @@ export async function POST(req: Request) {
 
         // Confirm to user  
         await transporter.sendMail({
-            from: `"${devInfos.name}" <${process.env.MY_EMAIL}>`,
+            from: `"${devInfos().name}" <${process.env.MY_EMAIL}>`,
             to: String(emailFormatted),
             subject: "Accusé de reception",
             html: emailHtml
