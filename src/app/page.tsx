@@ -66,7 +66,7 @@ export default function Page() {
                 {t("iam")} &nbsp;
               </span>
               <span
-                className="transition-default relative font-['papyrus'] dark:font-normal font-bold mx-4 dark:text-white text-black/80 before:transition-default before:absolute before:top-0 before:left-0 before:-translate-x-6 before:-translate-y-1 before:w-4 before:h-4 before:border-l-2 before:border-t-2 dark:before:border-white after:transition-default after:absolute after:bottom-0 after:right-0 after:translate-x-6 after:translate-y-1 after:w-4 after:h-4 after:border-r-2 after:border-b-2 dark:after:border-white after:border-black/80"
+                className="transition-default relative font-[papyrus_!important] dark:font-normal font-bold mx-4 dark:text-white text-black/80 before:transition-default before:absolute before:top-0 before:left-0 before:-translate-x-6 before:-translate-y-1 before:w-4 before:h-4 before:border-l-2 before:border-t-2 dark:before:border-white after:transition-default after:absolute after:bottom-0 after:right-0 after:translate-x-6 after:translate-y-1 after:w-4 after:h-4 after:border-r-2 after:border-b-2 dark:after:border-white after:border-black/80"
               >
                 Youmbi Le-duc
               </span>
@@ -75,7 +75,7 @@ export default function Page() {
 
           <h2
             ref={typedRef}
-            className="transition-default inline-block w-full h-7 text-xl text-left dark:text-blue-200 text-black/80 font-['papyrus'] dark:font-normal font-bold"
+            className="transition-default inline-block w-full h-7 text-xl text-left dark:text-blue-200 text-black/80 font-[papyrus_!important] dark:font-normal font-bold"
           />
 
           <Component
@@ -453,12 +453,15 @@ export default function Page() {
               <Component
                 key={child.title}
                 className={clsx(
-                  "transition-default relative flex flex-col gap-3 border dark:border-white/20 border-black/20 shadow-xl dark:shadow-white/15 shadow-black/20 rounded-xl p-4 overflow-hidden dark:bg-white/10 bg-black/6 lg:hover:-translate-y-2 before:transition-default before:absolute before:-top-10 before:-right-10 before:size-30 before:bg-radial dark:before:from-white/50 before:from-cyan-500/50 dark:before:to-white/10 before:to-cyan-500/10 before:to-60% before:opacity-70 before:rounded-full",
+                  "transition-default relative flex flex-col gap-3 border dark:border-white/20 border-black/20 shadow-xl dark:shadow-white/15 shadow-black/20 rounded-xl p-4 overflow-hidden dark:bg-black dark:opacity-90 bg-white lg:hover:-translate-y-2 before:transition-default before:absolute before:-top-10 before:-right-10 before:size-30 before:bg-radial dark:before:from-white/50 before:from-black/80 dark:before:to-white/10 before:to-black/5 before:to-60% before:opacity-70 before:rounded-full",
                 )}
               >
-                <span className="transition-default dark:text-blue-200 text-cyan-500 font-bold tracking-widest">
+                <Component
+                  component="span"
+                  className="transition-default dark:text-white text-black font-bold tracking-widest"
+                >
                   {child.title}
-                </span>
+                </Component>
                 <Desc
                   sentence={child.description}
                 />
@@ -497,12 +500,15 @@ export default function Page() {
               <Component
                 key={child.title}
                 className={clsx(
-                  "transition-default relative flex flex-col gap-3 border dark:border-white/20 border-black/20 shadow-xl dark:shadow-white/15 shadow-black/20 rounded-xl p-4 overflow-hidden dark:bg-white/10 bg-black/6 lg:hover:-translate-y-2 before:transition-default before:absolute before:-top-10 before:-right-10 before:size-30 before:bg-radial dark:before:from-white/50 before:from-cyan-500/50 dark:before:to-white/10 before:to-cyan-500/10 before:to-60% before:opacity-70 before:rounded-full",
+                  "transition-default relative flex flex-col gap-3 border dark:border-white/20 border-black/20 shadow-xl dark:shadow-white/15 shadow-black/20 rounded-xl p-4 overflow-hidden dark:bg-black dark:opacity-90 bg-white lg:hover:-translate-y-2 before:transition-default before:absolute before:-top-10 before:-right-10 before:size-30 before:bg-radial dark:before:from-white/50 before:froblack/8050 dark:before:to-white/10 before:tblack/510 before:to-60% before:opacity-70 before:rounded-full",
                 )}
               >
-                <span className="transition-default dark:text-blue-200 text-cyan-500 font-bold tracking-widest">
+                <Component
+                  component="span"
+                  className="transition-default dark:texwhite00 texblack00 font-bold tracking-wides
+                t">
                   {child.title}
-                </span>
+                </Component>
                 <Desc
                   sentence={child.description}
                 />
