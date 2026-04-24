@@ -1,27 +1,27 @@
 import Email from "@/app/components/mail/confirm";
-import { render } from '@react-email/render';
 import Message from "@/app/components/mail/message";
-import nodemailer from 'nodemailer';
-import { checkLength, checkPattern, Error } from "@/app/utils/tools";
-import { EMAIL_REGEX, NAME_REGEX } from "@/app/constants/regex";
 import { devInfos } from "@/app/constants/data";
+import { EMAIL_REGEX, NAME_REGEX } from "@/app/constants/regex";
+import { checkLength, checkPattern, Error } from "@/app/utils/tools";
+import { render } from '@react-email/render';
+import nodemailer from 'nodemailer';
 
 export async function POST(req: Request) {
     try {
         const { name, email, subject, message } = await req.json();
 
         if (!checkPattern(NAME_REGEX, name)) {
-            return Error("Nom invalide", "warning", 400);
+            return Error("Invalid name", "warning", 400);
         }
         else if (!checkLength(name, [3, 30])) {
-            return Error("Le nom doit comporter entre 3 et 30 caractères", "warning", 400);
+            return Error("Name must be between 3 and 30 characters", "warning", 400);
         }
 
         else if (!checkPattern(EMAIL_REGEX, email)) {
-            return Error("Email invalide", "warning", 400);
+            return Error("Invalid email", "warning", 400);
         }
         else if (!checkLength(email, [10, 100])) {
-            return Error("L'email nom doit comporter entre 10 et 100 caractères", "warning", 400);
+            return Error("Email must be between 10 and 100 characters", "warning", 400);
         }
 
         const nameFormatted = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
@@ -53,7 +53,7 @@ export async function POST(req: Request) {
         await transporter.sendMail({
             from: `"${devInfos().name}" <${process.env.MY_EMAIL}>`,
             to: String(emailFormatted),
-            subject: "Accusé de reception",
+            subject: "Receipt confirmation",
             html: emailHtml
         });
 

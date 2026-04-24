@@ -1,3 +1,4 @@
+import { devInfos } from '@/app/constants/data';
 import {
     Body,
     Container,
@@ -6,8 +7,8 @@ import {
     Html,
     Img,
     Link,
-    Preview,
     pixelBasedPreset,
+    Preview,
     Row,
     Section,
     Tailwind,
@@ -18,7 +19,7 @@ interface EmailProps {
     name: string;
 }
 
-export const Email = ({ name = "Youms" }: EmailProps) => {
+export const Email = ({ name }: EmailProps) => {
     const date = new Date().getHours();
 
     return (
@@ -53,7 +54,7 @@ export const Email = ({ name = "Youms" }: EmailProps) => {
                     />
                     <Container className="bg-white p-45">
                         <Heading className="mb-5 text-center leading-8">
-                            Message reçu
+                            Message received
                         </Heading>
 
                         <Section>
@@ -68,17 +69,17 @@ export const Email = ({ name = "Youms" }: EmailProps) => {
                                     }{name}
                                 </Text>
                                 <Text className="text-base">
-                                    Votre message a bien été envoyé à Youmbi Le-duc. Il vous répondra sous peu.
+                                    Your message has been successfully sent to Youmbi Le-duc. He will get back to you shortly.
                                 </Text>
 
-                                <Text className="text-base">À défaut vous pouvez le contacter via </Text>
+                                <Text className="text-base">If you can't hear from him, you can contact him on : </Text>
                                 <Text className="text-base">
-                                    Téléphone :
+                                    Phone :
                                     <Link href='tel:+237690552385' className='font-bold ml-20'>+ 237 6 90 55 23 85</Link>
                                 </Text>
                                 <Text className="text-base">
                                     Whatsapp :
-                                    <Link href={`https://wa.me/+237690552385?text=${date >= 16 ? "Bonsoir " : "Bonjour "}Le-duc je viens de visiter votre portfolio et j'aimerais discuter avec vous`} className='font-bold ml-20'>+ 237 6 90 55 23 85</Link>
+                                    <Link href={`https://wa.me/+237690552385?text=${date >= 16 ? "Good evening " : "Good morning "}Le-duc I just visited your portfolio and I would like to chat with you`} className='font-bold ml-20'>+ 237 6 90 55 23 85</Link>
                                 </Text>
                             </Row>
                         </Section>
@@ -86,7 +87,7 @@ export const Email = ({ name = "Youms" }: EmailProps) => {
 
                     <Container className="mt-20">
                         <Text className="text-center text-gray-400">
-                            Copyright &copy; youmsc.co@gmail.com
+                            Copyright &copy; {devInfos().email}
                         </Text>
                         <Text className="text-center text-gray-400">
                             Youms&rsquo;s portfolio {new Date().getFullYear()}

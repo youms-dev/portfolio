@@ -96,5 +96,19 @@
     "some_interfaces": "Some interfaces",
     "mode": "Mode",
     "gallery": "Gallery",
-    "carousel": "Carousel"
+    "carousel": "Carousel",
+    "toast_fill_fields": "Please fill in all the fields",
+    "toast_mail_sent": "A mail has been sent to you at {{email}}",
+    "toast_check_mail": "Check your mailbox or spam.",
+    "contact_title": "Contact me",
+    "contact_name": "Full name",
+    "contact_name_placeholder": "Your full name",
+    "contact_email": "Email address",
+    "contact_email_placeholder": "your.email@example.com",
+    "contact_subject": "Subject",
+    "contact_subject_placeholder": "Subject of your message",
+    "contact_message": "Message",
+    "contact_message_placeholder": "Your message...",
+    "contact_send_message": "Send message",
+    "contact_other_methods": "Or contact me directly"
 }

@@ -1,3 +1,4 @@
+import { devInfos } from '@/app/constants/data';
 import {
     Body,
     Container,
@@ -5,8 +6,8 @@ import {
     Heading,
     Html,
     Img,
-    Preview,
     pixelBasedPreset,
+    Preview,
     Row,
     Section,
     Tailwind,
@@ -20,7 +21,7 @@ interface MessageProps {
     message: string;
 }
 
-export const Message = ({ name = "Youms", email, subject = "Tu as reçu un mail", message = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium laboriosam assumenda voluptatum reiciendis! Impedit autem labore mollitia temporibus. Excepturi, ea est quia velit quibusdam laborum debitis. Architecto totam impedit rem." }: MessageProps) => {
+export const Message = ({ name, email, subject, message }: MessageProps) => {
 
     return (
         <Html>
@@ -54,13 +55,13 @@ export const Message = ({ name = "Youms", email, subject = "Tu as reçu un mail"
                     />
                     <Container className="bg-white p-45">
                         <Heading className="mb-5 leading-8">
-                            Mail de {name}
+                            Message from {name}
                         </Heading>
 
                         <Section>
                             <Row>
                                 <Text className="text-lg font-bold">
-                                    Email : {email}
+                                    Email address : {email}
                                 </Text>
                             </Row>
                         </Section>
@@ -68,7 +69,7 @@ export const Message = ({ name = "Youms", email, subject = "Tu as reçu un mail"
                         <Section>
                             <Row>
                                 <Text className="text-lg font-bold">
-                                    Sujet : {subject}
+                                    Subject : {subject}
                                 </Text>
                             </Row>
                         </Section>
@@ -84,7 +85,7 @@ export const Message = ({ name = "Youms", email, subject = "Tu as reçu un mail"
 
                     <Container className="mt-20">
                         <Text className="text-center text-gray-400">
-                            Copyright &copy; youmsc.co@gmail.com
+                            Copyright &copy; {devInfos().email}
                         </Text>
                         <Text className="text-center text-gray-400">
                             Youms&rsquo;s portfolio {new Date().getFullYear()}
