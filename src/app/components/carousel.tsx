@@ -272,7 +272,7 @@ export const Carousel = ({ list, duration = 2000 }: Props) => {
                             <div
                                 key={img.link}
                                 className={clsx(
-                                    "transition-default w-full h-full flex flex-col justify-center items-center gap-2 dark:bg-gray-900/90 bg-cyan-500/50 rounded-3xl py-7 px-4 aspect-square snap-center"
+                                    "transition-default w-full h-full flex flex-col justify-center items-center gap-2 dark:bg-white/10 bg-black/20 rounded-3xl py-7 px-4 aspect-square snap-center shadow-lg dark:shadow-white/10 shadow-black/30 mb-5"
                                 )}
                             >
                                 <div className="transition-default relative w-full h-full rounded-3xl shrink-0">
@@ -305,12 +305,12 @@ export const Carousel = ({ list, duration = 2000 }: Props) => {
                         )}>
                         <FaChevronCircleLeft
                             className={clsx(
-                                "transition-default text-3xl dark:text-white border-2 dark:border-white border-black rounded-full text-cyan-500 cursor-pointer opacity-50 group-[.active]:opacity-100 active:scale-75",
+                                "transition-default text-3xl dark:text-white border-2 dark:border-white border-black rounded-full text-black/80 cursor-pointer opacity-50 group-[.active]:opacity-100 active:scale-75",
                             )}
                         />
                         <FaChevronCircleRight
                             className={clsx(
-                                "transition-default text-3xl dark:text-white border-2 dark:border-white border-black rounded-full text-cyan-500 cursor-pointer opacity-50 group-[.active]:opacity-100 active:scale-75",
+                                "transition-default text-3xl dark:text-white border-2 dark:border-white border-black rounded-full text-black/80 cursor-pointer opacity-50 group-[.active]:opacity-100 active:scale-75",
                             )}
                         />
                     </div>
