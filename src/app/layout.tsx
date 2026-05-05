@@ -27,7 +27,7 @@ export const metadata: Metadata = {
       }
     ]
   },
-  icons: String(process.env.NEXT_PUBLIC_ICON_URL!)
+  icons: String(process.env.NEXT_PUBLIC_LOGO_URL!)
 };
 
 export default function RootLayout({
