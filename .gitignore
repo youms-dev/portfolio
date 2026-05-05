@@ -46,4 +46,6 @@ next-env.d.ts
 #other
 .qodo
 
-/.vercel
+.vercel
+
+/.vscode
