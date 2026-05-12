@@ -105,7 +105,7 @@ export default function Contact() {
                     </Component>
                     <Link
                         href={`tel:${devInfos(t).phoneNumber}`}
-                        className="transition-default text-lg font-bold tracking-widest"
+                        className="transition-default sm:text-lg font-bold tracking-widest"
                     >
                         {devInfos(t).phoneNumber}
                     </Link>
@@ -120,7 +120,7 @@ export default function Contact() {
                     <Link
                         href={`mailto:${devInfos(t).email}`}
                         target="_blank"
-                        className="transition-default text-lg font-bold tracking-widest"
+                        className="transition-default sm:text-lg font-bold tracking-widest"
                     >
                         {devInfos(t).email}
                     </Link>
@@ -135,7 +135,7 @@ export default function Contact() {
                     <Link
                         href={`http://wa.me/${devInfos(t).phoneNumber}?text=${hour >= 16 ? "Bonsoir" : "Bonjour"} monsieur Le-duc. Je viens de visiter votre portfolio et j'aimerais discuter avec vous !`}
                         target="_blank"
-                        className="transition-default text-lg font-bold tracking-widest"
+                        className="transition-default sm:text-lg font-bold tracking-widest"
                     >
                         {devInfos(t).phoneNumber}
                     </Link>
@@ -282,7 +282,10 @@ export default function Contact() {
                         <div className="transition-default flex flex-wrap justify-evenly items-center gap-6">
                             <Link
                                 href={`mailto:${devInfos(t).email}`}
-                                className="transition-default flex items-center gap-2 text-base tracking-[4px] font-bold dark:lg:hover:text-white lg:hover:text-black lg:hover:underline"
+                                className={clsx(
+                                    "scrollbar-invisible",
+                                    "transition-default flex items-center gap-2 text-base tracking-[4px] font-bold overflow-auto dark:lg:hover:text-white lg:hover:text-black lg:hover:underline",
+                                )}
                             >
                                 <FaEnvelopeCircleCheck
                                     className="transition-default text-3xl"
