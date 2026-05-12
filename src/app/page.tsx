@@ -58,7 +58,7 @@ export default function Page() {
           <h1 className="transition-default text-2xl text-left">
             <span>
               {
-                new Date().getHours() >= 16 ? t("goodbye") : t("hello")
+                new Date().getHours() >= 16 ? t("good_evening") : t("good_morning")
               },
             </span>
             <p className="my-2">
@@ -274,7 +274,7 @@ export default function Page() {
             </div>
 
             <Link
-              href={`http://wa.me/${devInfos().phoneNumber}?text=${hour >= 16 ? t("goodbye") : t("hello")} ${t("presentation_text")}`}
+              href={`http://wa.me/${devInfos().phoneNumber}?text=${hour >= 16 ? t("good_evening") : t("good_morning")} ${t("presentation_text")}`}
               target="_blank"
               className={clsx(
                 "section-animated",
