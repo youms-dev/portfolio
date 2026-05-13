@@ -132,20 +132,18 @@ export const Nav = () => {
     }, [i18n]);
 
     return (
-        <nav
-            className={clsx(
-                "transition-default fixed left-0 top-0 w-full h-18 flex items-center dark:bg-black bg-white z-50 lg:px-5 min-[500px]:px-3 border-b dark:border-b-white/50 border-b-black/20",
-                navShadow && "shadow-lg dark:shadow-white/15 shadow-black/20",
-            )}
-        >
+        <nav className={clsx(
+            "transition-default fixed left-0 top-0 w-full h-18 flex items-center dark:bg-black bg-white z-50 lg:px-5 min-[500px]:px-3 border-b dark:border-b-white/50 border-b-black/20",
+            navShadow && "shadow-lg dark:shadow-white/15 shadow-black/20",
+        )}>
             <span
-                className="transition-default absolute left-0 bottom-0 h-[5px] bg-linear-to-r dark:from-black from-white/80 dark:to-white/80 to-black/80 rounded-r-4xl"
                 style={{
                     width: progressWidth,
                 }}
+                className="transition-default absolute left-0 bottom-0 h-[5px] bg-linear-to-r dark:from-black from-white/80 dark:to-white/80 to-black/80 rounded-r-4xl"
             />
 
-            <div className="transition-default w-max h-full flex items-center shrink-0 max-md:gap-3">
+            <div className="transition-default w-max h-full flex items-center shrink-0 max-md:gap-3 max-[500px]:px-3">
                 <Link
                     href="/"
                     className="transition-default relative size-15 max-md:hidden rounded-full"
